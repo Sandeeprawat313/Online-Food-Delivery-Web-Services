@@ -1,5 +1,6 @@
 package com.foodexpress.model;
 
-public class Customer {
+public class Customer
+{
 
 }
