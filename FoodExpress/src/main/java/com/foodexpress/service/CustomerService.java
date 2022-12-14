@@ -4,10 +4,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.masai.model.Customer;
+import com.foodexpress.model.Customer;
 
 @Service
-public interface CustomerService {
+public interface CustomerService
+{
 
 	// @Query("select c.email from Customer c")
 	public Customer customerRegistration(Customer customer);
