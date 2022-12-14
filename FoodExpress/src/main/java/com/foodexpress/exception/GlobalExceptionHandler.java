@@ -62,6 +62,14 @@ public class GlobalExceptionHandler
 		return new ResponseEntity<MyErrorDetails>(err1, HttpStatus.BAD_REQUEST);
 	}
 
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<MyErrorDetails> illigalArgumetHandler(IllegalArgumentException ee, WebRequest req)
+	{
+		MyErrorDetails err1 = new MyErrorDetails(LocalDateTime.now(), ee.getMessage(), req.getDescription(false));
+
+		return new ResponseEntity<MyErrorDetails>(err1, HttpStatus.BAD_REQUEST);
+	}
+
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<MyErrorDetails> genaralExceptionHandler(Exception e, WebRequest req)
 	{
@@ -72,13 +80,4 @@ public class GlobalExceptionHandler
 
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
 	}
-
-	@ExceptionHandler(IllegalArgumentException.class)
-	public ResponseEntity<MyErrorDetails> illigalArgumetHandler(IllegalArgumentException ee, WebRequest req)
-	{
-		MyErrorDetails err1 = new MyErrorDetails(LocalDateTime.now(), ee.getMessage(), req.getDescription(false));
-
-		return new ResponseEntity<MyErrorDetails>(err1, HttpStatus.BAD_REQUEST);
-	}
-
 }
