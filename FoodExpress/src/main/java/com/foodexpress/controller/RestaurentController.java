@@ -95,6 +95,7 @@ public class RestaurentController
 	{
 		Restaurants newRestaurant = rService.addRestaurant(restaurant);
 
+
 		return new ResponseEntity<Restaurants>(newRestaurant, HttpStatus.CREATED);
 
 	}
