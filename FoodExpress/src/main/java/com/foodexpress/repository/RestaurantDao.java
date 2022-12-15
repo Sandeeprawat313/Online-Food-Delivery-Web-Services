@@ -14,5 +14,5 @@ public interface RestaurantDao extends JpaRepository<Restaurants, Integer> {
 	@Query("select r from Restaurants r where r.restaurantName=?1")
 	public Restaurants getResByName(String restaurantName);
 	
-	public Restaurants findByMobileNo(String mobileNo);
+	public Restaurants findByContactNumber(String contactNumber);
 }

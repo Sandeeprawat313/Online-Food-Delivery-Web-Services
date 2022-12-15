@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class RestaurantLoginDTO {
-	private String mobileNo;
+	private String contactNumber;
 	private String password;
 }

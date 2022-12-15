@@ -7,5 +7,5 @@ import com.foodexpress.authorization.model.RestaurantSession;
 
 @Repository
 public interface RestaurantSessionDao extends JpaRepository<RestaurantSession, Integer>{
-	public RestaurantSession findByUinqueId(String uniqueId);
+	public RestaurantSession findByUniqueId(String uniqueId);
 }

@@ -1,5 +1,8 @@
 package com.foodexpress.authorization.service;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +14,6 @@ import com.foodexpress.model.Restaurants;
 import com.foodexpress.repository.RestaurantDao;
 
 import net.bytebuddy.utility.RandomString;
-
-import java.time.LocalDateTime;
-import java.util.*;
 
 @Service
 public class RestaurantLoginServiceImpl implements RestaurantLoginService{
@@ -27,7 +27,7 @@ public class RestaurantLoginServiceImpl implements RestaurantLoginService{
 	@Override
 	public String restaurantLogin(RestaurantLoginDTO dto) throws RestaurantLoginException {
 		
-		Restaurants existingRestaurant = rDao.findByMobileNo(dto.getMobileNo());
+		Restaurants existingRestaurant = rDao.findByContactNumber(dto.getContactNumber());
 		
 		if(existingRestaurant==null) {
 			throw new RestaurantLoginException("Please enter a valid mobile number!");
@@ -55,7 +55,7 @@ public class RestaurantLoginServiceImpl implements RestaurantLoginService{
 
 	@Override
 	public String restaurantLogout(String uniqueId) throws RestaurantLoginException {
-		RestaurantSession validRestaurant = rSDao.findByUinqueId(uniqueId);
+		RestaurantSession validRestaurant = rSDao.findByUniqueId(uniqueId);
 		if(validRestaurant==null) {
 			throw new RestaurantLoginException("Restaurant didn't sign in with this number!");
 		}

@@ -27,7 +27,7 @@ public class CustomerLoginServiceImpl implements CustomerLoginService{
 	@Override
 	public String customerLogin(CustomerLoginDTO dto) throws CustomerLoginException {
 		
-		Customer existingCustomer = cDao.findByMobileNo(dto.getMobileNo());
+		Customer existingCustomer = cDao.findByMobileNumber(dto.getMobileNumber());
 		
 		if(existingCustomer==null) {
 			throw new CustomerLoginException("Please enter a valid mobile number!");
@@ -55,7 +55,7 @@ public class CustomerLoginServiceImpl implements CustomerLoginService{
 	@Override
 	public String customerLogout(String uniqueId) throws CustomerLoginException {
 		
-		CustomerSession validCustomer = cSDao.findByUinqueId(uniqueId);
+		CustomerSession validCustomer = cSDao.findByUniqueId(uniqueId);
 		
 		if(validCustomer == null) {
 			throw new CustomerLoginException("User not logged in with this number!");
