@@ -77,6 +77,15 @@ public class GlobalExceptionHandler
 
 		return new ResponseEntity<MyErrorDetails>(err1, HttpStatus.BAD_REQUEST);
 	}
+	
+	
+	@ExceptionHandler(CartNotFoundException.class)
+	public ResponseEntity<MyErrorDetails> CartExceptionHandler(CartNotFoundException be, WebRequest req)
+	{
+		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), be.getMessage(), req.getDescription(false));
+
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+	}
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<MyErrorDetails> genaralExceptionHandler(Exception e, WebRequest req)
