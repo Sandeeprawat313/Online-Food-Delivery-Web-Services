@@ -11,7 +11,10 @@ import com.foodexpress.model.Restaurants;
 @Repository
 public interface RestaurantDao extends JpaRepository<Restaurants, Integer>
 {
-  @Query("select r from Restaurants r")
+
+	public Restaurants findByContactNumber(String contactNumber);
+
+	@Query("select r from Restaurants r")
 	public List<Restaurants> getRestByLocation();
 
 	//////////////////////////////////////////////////////////////////
