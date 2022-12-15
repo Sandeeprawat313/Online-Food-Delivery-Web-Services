@@ -27,4 +27,14 @@ public class CustomerSession {
 	private Integer customerId;
 	private String uniqueId;
 	private LocalDateTime timeStamp;
+	
+	public CustomerSession(Integer customerId, String uniqueId, LocalDateTime timeStamp) {
+		super();
+		this.customerId = customerId;
+		this.uniqueId = uniqueId;
+		this.timeStamp = timeStamp;
+	}
+	
+	
+	
 }

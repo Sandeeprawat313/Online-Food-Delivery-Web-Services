@@ -19,6 +19,7 @@ public class Restaurants {
 	private String restaurantName;
 	private String managerName;
 	private String contactNumber;
+	private String password;
 
 	@Embedded
 	private Address address;
@@ -32,12 +33,13 @@ public class Restaurants {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Restaurants(String restaurantName, String managerName, String contactNumber, Address address,
+	public Restaurants(String restaurantName, String managerName, String contactNumber, String password, Address address,
 			List<Items> itemList) {
 		super();
 		this.restaurantName = restaurantName;
 		this.managerName = managerName;
 		this.contactNumber = contactNumber;
+		this.password = password;
 		this.address = address;
 		this.itemList = itemList;
 	}
@@ -72,6 +74,14 @@ public class Restaurants {
 
 	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public Address getAddress() {

@@ -32,11 +32,11 @@ public class Bill {
 		this.order = order;
 	}
 
-	public String getBillId() {
+	public Integer getBillId() {
 		return billId;
 	}
 
-	public void setBillId(String billId) {
+	public void setBillId(Integer billId) {
 		this.billId = billId;
 	}
 

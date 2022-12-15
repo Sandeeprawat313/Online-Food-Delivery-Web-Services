@@ -27,4 +27,11 @@ public class RestaurantSession {
 	private Integer restaurantId;
 	private String uniqueId;
 	private LocalDateTime timeStamp;
+	
+	public RestaurantSession(Integer restaurantId, String uniqueId, LocalDateTime timeStamp) {
+		super();
+		this.restaurantId = restaurantId;
+		this.uniqueId = uniqueId;
+		this.timeStamp = timeStamp;
+	}
 }
