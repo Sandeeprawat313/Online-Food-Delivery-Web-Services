@@ -21,6 +21,12 @@ public class CustomerControll {
 	@Autowired
 	private CustomerService cService;
 
+	// dummy
+	@GetMapping("/hello")
+	public String sayHeloo() {
+		return "hello my name is sandeep rawat";
+	}
+	
 	// 1. add customer
 	@PostMapping("/customers")
 	public ResponseEntity<Customer> customerRegistration(@RequestBody Customer customer) {
