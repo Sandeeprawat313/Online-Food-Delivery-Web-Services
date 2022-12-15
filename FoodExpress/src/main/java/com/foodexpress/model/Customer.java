@@ -18,6 +18,7 @@ public class Customer
 	private String gender;
 	private String mobileNumber;
 	private String email;
+	private String password;
 
 	@Embedded
 	private Address address;
@@ -102,16 +103,28 @@ public class Customer
 		this.address = address;
 	}
 
-	public Customer(String firstName, String lastName, Integer age, String gender, String mobileNumber, String email,
-			Address address)
-	{
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	
+	
+	public Customer(Integer customerId, String firstName, String lastName, Integer age, String gender,
+			String mobileNumber, String email, String password, Address address) {
 		super();
+		this.customerId = customerId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.age = age;
 		this.gender = gender;
 		this.mobileNumber = mobileNumber;
 		this.email = email;
+		this.password = password;
 		this.address = address;
 	}
 
