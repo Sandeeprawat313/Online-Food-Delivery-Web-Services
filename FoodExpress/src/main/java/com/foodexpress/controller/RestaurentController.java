@@ -16,7 +16,7 @@ public class RestaurentController {
 	@Autowired
 	private RestaurantService rService;
 
-	@PostMapping("restaurants")
+	@PostMapping("/restaurants")
 	public ResponseEntity<Restaurants> listRestaurants(@RequestBody Restaurants restaurant) {
 		Restaurants newRestaurant = rService.listRestaurant(restaurant);
 
