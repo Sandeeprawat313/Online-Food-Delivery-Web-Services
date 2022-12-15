@@ -1,5 +1,7 @@
 package com.foodexpress.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -7,12 +9,16 @@ import org.springframework.stereotype.Repository;
 import com.foodexpress.model.Restaurants;
 
 @Repository
-public interface RestaurantDao extends JpaRepository<Restaurants, Integer> {
+public interface RestaurantDao extends JpaRepository<Restaurants, Integer>
+{
+  @Query("select r from Restaurants r")
+	public List<Restaurants> getRestByLocation();
 
-	//public Restaurants findByrestaurantName(String restaurantName);
-	
+	//////////////////////////////////////////////////////////////////
+
+	public Restaurants findByRestaurantName(String restaurantName);
+
 	@Query("select r from Restaurants r where r.restaurantName=?1")
 	public Restaurants getResByName(String restaurantName);
-	
-	public Restaurants findByContactNumber(String contactNumber);
+
 }
