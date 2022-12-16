@@ -4,13 +4,14 @@ import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
-public class Bill {
+public class Bill
+{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,11 +23,13 @@ public class Bill {
 	@OneToOne(cascade = CascadeType.ALL)
 	private OrderDetails order;
 
-	public Bill() {
-		// TODO Auto-generated constructor stub
+	public Bill()
+	{
+
 	}
 
-	public Bill(Integer billId, LocalDateTime billDate, double totalCost, Integer totalItem, OrderDetails order) {
+	public Bill(Integer billId, LocalDateTime billDate, double totalCost, Integer totalItem, OrderDetails order)
+	{
 		super();
 		this.billId = billId;
 		this.billDate = billDate;
@@ -35,43 +38,53 @@ public class Bill {
 		this.order = order;
 	}
 
-	public Integer getBillId() {
+	public Integer getBillId()
+	{
 		return billId;
 	}
 
-	public void setBillId(Integer billId) {
+	public void setBillId(Integer billId)
+	{
 		this.billId = billId;
 	}
 
-	public LocalDateTime getBillDate() {
+	public LocalDateTime getBillDate()
+	{
 		return billDate;
 	}
 
-	public void setBillDate(LocalDateTime billDate) {
+	public void setBillDate(LocalDateTime billDate)
+	{
 		this.billDate = billDate;
 	}
 
-	public double getTotalCost() {
+	public double getTotalCost()
+	{
 		return totalCost;
 	}
 
-	public void setTotalCost(double totalCost) {
+	public void setTotalCost(double totalCost)
+	{
 		this.totalCost = totalCost;
 	}
 
-	public Integer getTotalItem() {
+	public Integer getTotalItem()
+	{
 		return totalItem;
 	}
 
-	public void setTotalItem(Integer totalItem) {
+	public void setTotalItem(Integer totalItem)
+	{
 		this.totalItem = totalItem;
 	}
 
-	public OrderDetails getOrder() {
+	public OrderDetails getOrder()
+	{
 		return order;
 	}
 
-	public void setOrder(OrderDetails order) {
+	public void setOrder(OrderDetails order)
+	{
 		this.order = order;
 	}
 
