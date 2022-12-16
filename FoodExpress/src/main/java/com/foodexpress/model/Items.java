@@ -13,7 +13,8 @@ import javax.persistence.ManyToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Items {
+public class Items
+{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer itemId;
@@ -23,7 +24,8 @@ public class Items {
 	private Integer costPerUnit;
 
 	public Items(Integer itemId, String itemName, String category, Integer quantity, Integer costPerUnit,
-			List<Restaurants> listOfRestaurants) {
+			List<Restaurants> listOfRestaurants)
+	{
 		super();
 		this.itemId = itemId;
 		this.itemName = itemName;
@@ -33,60 +35,73 @@ public class Items {
 		this.listOfRestaurants = listOfRestaurants;
 	}
 
-	@JsonIgnore// for recurssion problem // but konse me use hoga kese pata 1:25:20
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "itemList")
+	@JsonIgnore // for recurssion problem // but konse me use hoga kese pata 1:25:20
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "itemList") //
 	private List<Restaurants> listOfRestaurants = new ArrayList<>();
 
-	public Items() {
+	public Items()
+	{
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Integer getItemId() {
+	public Integer getItemId()
+	{
 		return itemId;
 	}
 
-	public void setItemId(Integer itemId) {
+	public void setItemId(Integer itemId)
+	{
 		this.itemId = itemId;
 	}
 
-	public String getItemName() {
+	public String getItemName()
+	{
 		return itemName;
 	}
 
-	public void setItemName(String itemName) {
+	public void setItemName(String itemName)
+	{
 		this.itemName = itemName;
 	}
 
-	public String getCategory() {
+	public String getCategory()
+	{
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(String category)
+	{
 		this.category = category;
 	}
 
-	public Integer getQuantity() {
+	public Integer getQuantity()
+	{
 		return quantity;
 	}
 
-	public void setQuantity(Integer quantity) {
+	public void setQuantity(Integer quantity)
+	{
 		this.quantity = quantity;
 	}
 
-	public Integer getCostPerUnit() {
+	public Integer getCostPerUnit()
+	{
 		return costPerUnit;
 	}
 
-	public void setCostPerUnit(Integer costPerUnit) {
+	public void setCostPerUnit(Integer costPerUnit)
+	{
 		this.costPerUnit = costPerUnit;
 	}
 
-	public List<Restaurants> getListOfRestaurants() {
+	public List<Restaurants> getListOfRestaurants()
+	{
 		return listOfRestaurants;
 	}
 
-	public void setListOfRestaurants(List<Restaurants> listOfRestaurants) {
+	public void setListOfRestaurants(List<Restaurants> listOfRestaurants)
+	{
 		this.listOfRestaurants = listOfRestaurants;
 	}
 
