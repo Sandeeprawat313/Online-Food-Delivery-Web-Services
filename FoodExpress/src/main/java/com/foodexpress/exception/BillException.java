@@ -1,15 +1,12 @@
 package com.foodexpress.exception;
 
-public class BillException extends Exception
-{
+public class BillException extends RuntimeException {
 
-	public BillException()
-	{
+	public BillException() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BillException(String messages)
-	{
+	public BillException(String messages) {
 		// TODO Auto-generated constructor stub
 		super(messages);
 	}

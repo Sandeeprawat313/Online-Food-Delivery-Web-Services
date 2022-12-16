@@ -8,7 +8,8 @@ import com.foodexpress.model.Bill;
 
 public interface BillService {
 
-	public Bill addBill(Bill bill) throws BillException;
+	//6 customer ===> add services 
+	public Bill addBill(Integer orderId, String uniqueId) throws BillException;
 
 	public Bill removeBill(Bill bill) throws BillException;
 

@@ -24,7 +24,8 @@ public interface ItemService
 	// public List<Items> viewAllItems(Category category ) throws
 	// RestaurantException;
 
-	public List<Items> viewAllItemsOfRestaurent(Integer restntId) throws ItemException;
+	// 4
+	public List<Items> viewAllItemsOfRestaurent(Integer restaurentId,String uniqueId) throws ItemException;
 
 	public List<Items> viewAllItemsByName(String name) throws ItemException;
 

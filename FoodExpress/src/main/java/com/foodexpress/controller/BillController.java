@@ -3,6 +3,7 @@ package com.foodexpress.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,10 +19,11 @@ public class BillController {
 	@Autowired
 	public BillService bService;
 
-	@PostMapping("/addBill")
-	public ResponseEntity<Bill> addBill(@RequestBody Bill bill) throws BillException {
+	@PostMapping("/addBill/{orderId}/{uniqueId}")
+	public ResponseEntity<Bill> addBill(@PathVariable("orderId") Integer orderId,
+			@PathVariable("uniqueId") String uniqueId) {
 
-		Bill savedBill = bService.addBill(bill);
+		Bill savedBill = bService.addBill(orderId, uniqueId);
 
 		return new ResponseEntity<Bill>(savedBill, HttpStatus.CREATED);
 

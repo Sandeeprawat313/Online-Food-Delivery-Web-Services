@@ -27,7 +27,7 @@ public class CustomerControll {
 		return "hello my name is sandeep rawat";
 	}
 	
-	// 1. add customer
+	// 1. add customer ==> registration
 	@PostMapping("/customers")
 	public ResponseEntity<Customer> customerRegistration(@RequestBody Customer customer) {
 		Customer NewCustomer = cService.customerRegistration(customer);

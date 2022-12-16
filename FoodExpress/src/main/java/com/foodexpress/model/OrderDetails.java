@@ -1,9 +1,14 @@
 package com.foodexpress.model;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -22,18 +27,16 @@ import lombok.ToString;
 @Getter
 @Setter
 public class OrderDetails {
-	
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer orderId;
-	
-	private LocalTime orderDate;
-	
+
+	private LocalDateTime orderDate;
+
 	private String orderStatus;
-	
-	@OneToOne(cascade=CascadeType.ALL)
+
+	@OneToOne(cascade = CascadeType.ALL)
 	public FoodCart cart;
-	
-	
-	
 
 }

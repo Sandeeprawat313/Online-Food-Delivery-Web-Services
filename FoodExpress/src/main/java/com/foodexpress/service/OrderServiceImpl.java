@@ -1,26 +1,62 @@
 package com.foodexpress.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.foodexpress.authorization.model.CustomerSession;
+import com.foodexpress.authorization.repository.CustomerSessionDao;
+import com.foodexpress.exception.CartNotFoundException;
 import com.foodexpress.exception.OrderException;
 import com.foodexpress.model.Customer;
+import com.foodexpress.model.FoodCart;
 import com.foodexpress.model.OrderDetails;
 import com.foodexpress.model.Restaurants;
+import com.foodexpress.repository.CartDao;
 import com.foodexpress.repository.OrderDao;
 
+@Service
 public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	public OrderDao oDao;
 
-	@Override
-	public OrderDetails addOrder(OrderDetails order) throws OrderException {
-		OrderDetails savedOrder = oDao.save(order);
+	@Autowired
+	public CustomerSessionDao cSDao;
 
-		return savedOrder;
+	@Autowired
+	public CartDao cDao;
+
+	// place your order
+	@Override
+	public OrderDetails addOrder(Integer cartId, String uniqueId) {
+
+		CustomerSession cs = cSDao.findByUniqueId(uniqueId);
+		if (cs != null) {
+			FoodCart foodCart = cDao.findByCustumerId(cs.getCustomerId());
+			if (foodCart != null) {
+				OrderDetails od = new OrderDetails();
+				od.setOrderDate(LocalDateTime.now());
+				od.setOrderStatus("Placed");
+				od.setCart(foodCart);
+				// cDao.delete(foodCart);
+				System.out.println(foodCart);
+				return oDao.save(od);
+
+			} else {
+				throw new CartNotFoundException("No item found in your cart");
+			}
+		}
+		{
+			throw new OrderException("customer is not logged in");
+		}
+
+//		OrderDetails savedOrder = oDao.save(order);
+//
+//		return savedOrder;
 
 	}
 

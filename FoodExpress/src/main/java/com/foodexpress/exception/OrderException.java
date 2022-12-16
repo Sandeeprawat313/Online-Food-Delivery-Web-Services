@@ -1,6 +1,6 @@
 package com.foodexpress.exception;
 
-public class OrderException extends Exception {
+public class OrderException extends RuntimeException {
 
 	public OrderException() {
 		// TODO Auto-generated constructor stub

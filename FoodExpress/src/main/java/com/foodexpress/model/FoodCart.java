@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,20 +31,14 @@ import lombok.ToString;
 @Setter
 @ToString
 public class FoodCart {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer cartId;
-
-//	@OneToOne
-//	private Customer customer;
-	
 	private Integer custumerId;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Items> itemList=new ArrayList<>();
 
-	
-	
+	@Embedded
+	@ElementCollection(fetch = FetchType.EAGER)
+	private List<Items> itemList = new ArrayList<>();
 
 }

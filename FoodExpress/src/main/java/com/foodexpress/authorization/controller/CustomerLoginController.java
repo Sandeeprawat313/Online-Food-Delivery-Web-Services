@@ -16,6 +16,7 @@ public class CustomerLoginController {
 	@Autowired
 	private CustomerLoginService cLService;
 	
+	//2 customer login 
 	@PostMapping("/customerLogin")
 	public String customerLogin(@RequestBody CustomerLoginDTO dto) {
 		return cLService.customerLogin(dto);
