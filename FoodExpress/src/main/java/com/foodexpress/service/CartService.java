@@ -8,12 +8,17 @@ import com.foodexpress.model.FoodCart;
 import com.foodexpress.model.Items;
 
 public interface CartService {
+	public FoodCart saveCart(FoodCart cart)throws CartNotFoundException;
 	
-	public FoodCart addItemToCart(Integer cart,Integer item) throws CartNotFoundException ,ItemException;
+	public FoodCart addItemToCart(Integer cartId,Integer itemId) throws CartNotFoundException ,ItemException;
 	
-//public FoodCart saveCart(FoodCart cart)throws CartNotFoundException;
+    public FoodCart increaseQuantity(Integer cart_id,Integer quantity,Integer item_Id)throws CartNotFoundException ,ItemException;
 	
+    public FoodCart reduceQuantity(Integer cart_id,Integer quantity,Integer item_Id)throws CartNotFoundException ,ItemException;
 	
+    public FoodCart removeItem(Integer cartId,Integer itemId)throws CartNotFoundException ,ItemException;
+    
 	public FoodCart clearCart(Integer cartId) throws CartNotFoundException;
+	
 
 }

@@ -30,6 +30,7 @@ import lombok.ToString;
 public class FoodCart {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer cartId;
 
 	@OneToOne
