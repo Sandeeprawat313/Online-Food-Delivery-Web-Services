@@ -3,6 +3,8 @@ package com.foodexpress.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -29,23 +31,50 @@ public class FoodCartController {
 
 	
 	
-	@PostMapping("/FoodCartRegister")
-	public ResponseEntity<FoodCart> FoodCartRegistration(  @RequestParam String key,@RequestBody FoodCart cart) throws CartNotFoundException
+//	@PostMapping("/FoodCartRegister")
+//	public ResponseEntity<FoodCart> FoodCartRegistration(  @RequestParam String key,@RequestBody FoodCart cart) throws CartNotFoundException
+//	{
+//		
+//		CustomerSession cs=csDao.findByUniqueId(key);
+//		if(cs.getUniqueId()!=null && cart!=null) {
+//		
+//		FoodCart carts= cartServices.saveCart(cart);
+//		return new ResponseEntity<FoodCart>(carts, HttpStatus.CREATED);
+//
+//	}
+//		else
+//		{
+//			throw new CartNotFoundException();
+//		}
+//	}
+
+	@GetMapping("/viewcart/{id}")
+	public ResponseEntity<FoodCart> viewcart(@PathVariable("id")Integer id) throws CartNotFoundException{
+		FoodCart cart=cartServices.viewCart(id);
+		return new ResponseEntity<FoodCart>(cart,HttpStatus.OK);
+		
+	}
+	
+	
+	@PostMapping("/registerCart/{key}")
+	public ResponseEntity<FoodCart> saveCartDetails(@PathVariable("key") String key) throws CartNotFoundException
 	{
-		
-		CustomerSession cs=csDao.findByUniqueId(key);
-		if(cs.getUniqueId()!=null && cart!=null) {
-		
-		FoodCart carts= cartServices.saveCart(cart);
-		return new ResponseEntity<FoodCart>(carts, HttpStatus.CREATED);
-
+			
+					
+	            FoodCart f= cartServices.saveCart(key);
+	            	return new ResponseEntity<FoodCart>(f,HttpStatus.CREATED);
+	            
+	           
 	}
-		else
-		{
-			throw new CartNotFoundException();
-		}
-	}
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@PutMapping("/addItemToFoodCart/{cartId}/{itemId}")
 	public ResponseEntity<FoodCart> addItemToCart(@PathVariable("cartId") Integer cartId, @PathVariable("itemId") Integer itemId) throws CartNotFoundException, ItemException{
 		FoodCart updatedCart = cartServices.addItemToCart(cartId, itemId);
@@ -69,6 +98,15 @@ public class FoodCartController {
 		return new ResponseEntity<FoodCart>(updatedQuantity,HttpStatus.ACCEPTED);
 	}
 	
-	
+	@DeleteMapping("/ClearCart/{id}")
+	public ResponseEntity<FoodCart> CartRegistration(@PathVariable("id")Integer cart_id) throws CartNotFoundException
+	{
+//		
+		FoodCart carts= cartServices.clearCart(cart_id);
+		return new ResponseEntity<FoodCart>(carts, HttpStatus.OK);
+//
+    }
+		
+	}
 
-}
+
