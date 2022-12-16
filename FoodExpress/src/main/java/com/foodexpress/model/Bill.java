@@ -6,11 +6,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 @Entity
 public class Bill {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer billId;
 	private LocalDateTime billDate;
 	private double totalCost;

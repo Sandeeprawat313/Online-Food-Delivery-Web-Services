@@ -1,12 +1,35 @@
 package com.foodexpress.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import com.foodexpress.exception.ItemException;
 import com.foodexpress.exception.RestaurantException;
 //import com.foodexpress.exception.RestaurantException;
 import com.foodexpress.model.Items;
+
 @Service
-public interface ItemService {
-	 //1. add item to restuarent
-	public Items addItemToRestaurant(String restaurantName, Items item) throws RestaurantException;
+public interface ItemService
+{
+	public Items createItem(String restaurantName, Items item) throws ItemException;
+
+	public Items updateItem(String restaurantName, Items item) throws ItemException;
+
+	public Items viewItem(String restaurantName, Integer itemid) throws ItemException;
+
+	public Items removeItem(Integer restaurantId, String uniqueId, Items item)
+			throws ItemException, RestaurantException;
+
+	// public List<Items> viewAllItems(Category category ) throws
+	// RestaurantException;
+
+	public List<Items> viewAllItemsOfRestaurent(Integer restntId) throws ItemException;
+
+	public List<Items> viewAllItemsByName(String name) throws ItemException;
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// 1. add item to restaurant
+	public Items addItemToRestaurant(String restaurantName, Items item) throws ItemException;
+
 }

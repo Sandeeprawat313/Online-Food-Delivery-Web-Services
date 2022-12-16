@@ -1,5 +1,8 @@
 package com.foodexpress.model;
 
+import lombok.Data;
+
+@Data
 public class Address {
 	private String buildingName;
 	private String streetNo;

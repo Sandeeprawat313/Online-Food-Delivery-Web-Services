@@ -10,4 +10,5 @@ public interface ItemsDao extends JpaRepository<Items, Integer>
 {
 
 	public List<Items> findByItemName(String itemName);
+
 }

@@ -12,7 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Restaurants {
+public class Restaurants
+{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer restaurantId;
@@ -24,17 +25,18 @@ public class Restaurants {
 	@Embedded
 	private Address address;
 
-	
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Items> itemList = new ArrayList<>();
 
-	public Restaurants() {
+	public Restaurants()
+	{
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
-	public Restaurants(String restaurantName, String managerName, String contactNumber, String password, Address address,
-			List<Items> itemList) {
+	public Restaurants(String restaurantName, String managerName, String contactNumber, String password,
+			Address address, List<Items> itemList)
+	{
 		super();
 		this.restaurantName = restaurantName;
 		this.managerName = managerName;
@@ -44,59 +46,73 @@ public class Restaurants {
 		this.itemList = itemList;
 	}
 
-	public Integer getRestaurantId() {
+	public Integer getRestaurantId()
+	{
 		return restaurantId;
 	}
 
-	public void setRestaurantId(Integer restaurantId) {
+	public void setRestaurantId(Integer restaurantId)
+	{
 		this.restaurantId = restaurantId;
 	}
 
-	public String getRestaurantName() {
+	public String getRestaurantName()
+	{
 		return restaurantName;
 	}
 
-	public void setRestaurantName(String restaurantName) {
+	public void setRestaurantName(String restaurantName)
+	{
 		this.restaurantName = restaurantName;
 	}
 
-	public String getManagerName() {
+	public String getManagerName()
+	{
 		return managerName;
 	}
 
-	public void setManagerName(String managerName) {
+	public void setManagerName(String managerName)
+	{
 		this.managerName = managerName;
 	}
 
-	public String getContactNumber() {
+	public String getContactNumber()
+	{
 		return contactNumber;
 	}
 
-	public void setContactNumber(String contactNumber) {
+	public void setContactNumber(String contactNumber)
+	{
 		this.contactNumber = contactNumber;
 	}
 
-	public String getPassword() {
+	public String getPassword()
+	{
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(String password)
+	{
 		this.password = password;
 	}
 
-	public Address getAddress() {
+	public Address getAddress()
+	{
 		return address;
 	}
 
-	public void setAddress(Address address) {
+	public void setAddress(Address address)
+	{
 		this.address = address;
 	}
 
-	public List<Items> getItemList() {
+	public List<Items> getItemList()
+	{
 		return itemList;
 	}
 
-	public void setItemList(List<Items> itemList) {
+	public void setItemList(List<Items> itemList)
+	{
 		this.itemList = itemList;
 	}
 
