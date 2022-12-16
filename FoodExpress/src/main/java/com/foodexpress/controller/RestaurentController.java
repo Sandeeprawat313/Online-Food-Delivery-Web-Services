@@ -19,7 +19,7 @@ import com.foodexpress.model.Restaurants;
 import com.foodexpress.service.RestaurantService;
 
 @RestController
-@RequestMapping("/restaurant")
+//@RequestMapping("/restaurant")
 public class RestaurentController
 {
 	@Autowired

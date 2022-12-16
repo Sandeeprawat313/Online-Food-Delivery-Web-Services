@@ -1,10 +1,14 @@
 package com.foodexpress.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Customer {
@@ -18,6 +22,12 @@ public class Customer {
 	private String mobileNumber;
 	private String email;
 	private String password;
+	
+//	@OneToOne(cascade = CascadeType.ALL)
+//	@JsonIgnore
+//	public FoodCart fcart;
+//	
+	
 
 	@Embedded
 	private Address address;

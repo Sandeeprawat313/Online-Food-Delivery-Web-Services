@@ -33,13 +33,14 @@ public class FoodCart {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer cartId;
 
-	@OneToOne
-	private Customer customer;
+//	@OneToOne
+//	private Customer customer;
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	public List<Items> itemList=new ArrayList<>();
+	private Integer custumerId;
 	
-	
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Items> itemList=new ArrayList<>();
+
 	
 	
 
