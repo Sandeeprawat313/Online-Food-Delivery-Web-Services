@@ -1,6 +1,6 @@
 package com.foodexpress.exception;
 
-public class CartNotFoundException extends Exception{
+public class CartNotFoundException extends RuntimeException {
 
 	public CartNotFoundException() {
 		super();
@@ -11,7 +11,5 @@ public class CartNotFoundException extends Exception{
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 
 }

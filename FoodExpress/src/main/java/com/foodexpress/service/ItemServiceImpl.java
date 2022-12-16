@@ -7,7 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.foodexpress.authorization.model.CustomerSession;
 import com.foodexpress.authorization.model.RestaurantSession;
+import com.foodexpress.authorization.repository.CustomerSessionDao;
 import com.foodexpress.authorization.repository.RestaurantSessionDao;
 import com.foodexpress.exception.ItemException;
 import com.foodexpress.exception.RestaurantException;
@@ -17,8 +19,7 @@ import com.foodexpress.repository.ItemsDao;
 import com.foodexpress.repository.RestaurantDao;
 
 @Service
-public class ItemServiceImpl implements ItemService
-{
+public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	private ItemsDao iDao;
@@ -29,14 +30,15 @@ public class ItemServiceImpl implements ItemService
 	@Autowired
 	private RestaurantSessionDao sDao;
 
+	@Autowired
+	private CustomerSessionDao cSDao;
+
 	@Override
-	public Items createItem(String restaurantName, Items item) throws ItemException
-	{
+	public Items createItem(String restaurantName, Items item) throws ItemException {
 
 		Restaurants existResturant = rDao.findByRestaurantName(restaurantName);
 
-		if (existResturant == null)
-		{
+		if (existResturant == null) {
 			throw new ItemException(restaurantName + " Resturant Not found with this name");
 		}
 
@@ -47,13 +49,11 @@ public class ItemServiceImpl implements ItemService
 	}
 
 	@Override
-	public Items updateItem(String restaurantName, Items item) throws ItemException
-	{
+	public Items updateItem(String restaurantName, Items item) throws ItemException {
 
 		Restaurants existResturant = rDao.findByRestaurantName(restaurantName);
 
-		if (existResturant == null)
-		{
+		if (existResturant == null) {
 			throw new ItemException(restaurantName + " Resturant Not found");
 		}
 
@@ -61,10 +61,8 @@ public class ItemServiceImpl implements ItemService
 
 		Items updatedItem = null;
 		int flag = 0;
-		for (Items elemitems : itemsList)
-		{
-			if ((elemitems.getItemId() == item.getItemId()))
-			{
+		for (Items elemitems : itemsList) {
+			if ((elemitems.getItemId() == item.getItemId())) {
 				elemitems.setItemName(item.getItemName());
 				elemitems.setCategory(item.getCategory());
 				elemitems.setCostPerUnit(item.getCostPerUnit());
@@ -74,12 +72,9 @@ public class ItemServiceImpl implements ItemService
 			}
 		}
 
-		if (flag == 0)
-		{
+		if (flag == 0) {
 			throw new ItemException("Irem Not FOund with provided item ID");
-		}
-		else
-		{
+		} else {
 			iDao.save(updatedItem);
 		}
 
@@ -87,20 +82,17 @@ public class ItemServiceImpl implements ItemService
 	}
 
 	@Override
-	public Items viewItem(String restaurantName, Integer itemid) throws ItemException
-	{
+	public Items viewItem(String restaurantName, Integer itemid) throws ItemException {
 		// TODO Auto-generated method stub
 		Restaurants existResturant = rDao.findByRestaurantName(restaurantName);
 
-		if (existResturant == null)
-		{
+		if (existResturant == null) {
 			throw new ItemException(restaurantName + " Resturant Not found with this name");
 		}
 
 		Optional<Items> opt = iDao.findById(itemid);
 
-		if (opt.isEmpty())
-		{
+		if (opt.isEmpty()) {
 			throw new ItemException("Invalid id==>" + itemid);
 		}
 
@@ -201,63 +193,61 @@ public class ItemServiceImpl implements ItemService
 //	}
 
 	@Override
-	public Items removeItem(Integer restaurantId, String uniqueId, Items item) throws ItemException, RestaurantException
-	{
+	public Items removeItem(Integer restaurantId, String uniqueId, Items item)
+			throws ItemException, RestaurantException {
 
 		RestaurantSession loggedInRestaurant = sDao.findByUniqueId(uniqueId);
 
-		if (loggedInRestaurant == null)
-		{
+		if (loggedInRestaurant == null) {
 			throw new RestaurantException("Invalid unique id..!!");
 		}
 
 		Items itemfind = null;
 		Optional<Items> opt = iDao.findById(item.getItemId());
-		if (opt.isEmpty())
-		{
+		if (opt.isEmpty()) {
 			throw new ItemException("NoOpThreadContextMap found");
-		}
-		else
-		{
+		} else {
 			itemfind = opt.get();
 
-			if (restaurantId == loggedInRestaurant.getRestaurantId())
-			{
+			if (restaurantId == loggedInRestaurant.getRestaurantId()) {
 				iDao.delete(item);
 				return item;
 
-			}
-			else
-			{
+			} else {
 				throw new RestaurantException("Invalid restaurant details");
 			}
 		}
 
 	}
 
+	// 4 ..
 	@Override
-	public List<Items> viewAllItemsOfRestaurent(Integer restntId) throws ItemException
-	{
-		// TODO Auto-generated method stub
-		Optional<Restaurants> opt = rDao.findById(restntId);
+	public List<Items> viewAllItemsOfRestaurent(Integer restaurantId, String uniqueId) {
 
-		if (opt.isEmpty())
-		{
-			throw new ItemException("No resturant found with this ID " + restntId);
+		CustomerSession cS = cSDao.findByUniqueId(uniqueId);
+
+		if (cS != null) {
+			Optional<Restaurants> opt = rDao.findById(restaurantId);
+			if (opt.isPresent()) {
+				List<Items> listOfItems = opt.get().getItemList();
+				return listOfItems;
+
+			} else {
+				throw new RestaurantException("Restuarent not exsit");
+			}
 		}
-
-		return opt.get().getItemList();
+		{
+			throw new RestaurantException("Customer is not logged in");
+		}
 
 	}
 
 	@Override
-	public List<Items> viewAllItemsByName(String name) throws ItemException
-	{
+	public List<Items> viewAllItemsByName(String name) throws ItemException {
 		// TODO Auto-generated method stub
 		List<Items> listallItem = iDao.findAll();
 
-		if (listallItem.size() == 0)
-		{
+		if (listallItem.size() == 0) {
 			throw new ItemException("Item Table is full Emptry");
 		}
 
@@ -265,37 +255,28 @@ public class ItemServiceImpl implements ItemService
 
 		int flag = 0;
 
-		for (Items elemItem : listallItem)
-		{
-			if (elemItem.getItemName().equalsIgnoreCase(name))
-			{
+		for (Items elemItem : listallItem) {
+			if (elemItem.getItemName().equalsIgnoreCase(name)) {
 				particularItemList.add(elemItem);
 				flag = 1;
 			}
 		}
 
-		if (flag == 0)
-		{
+		if (flag == 0) {
 			throw new ItemException("No Item Found with name");
-		}
-		else
-		{
+		} else {
 			return particularItemList;
 		}
 
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	public Items addItemToRestaurant(String restaurantName, Items item) throws ItemException
-	{
+	public Items addItemToRestaurant(String restaurantName, Items item) throws ItemException {
 		Restaurants restaurant = rDao.getResByName(restaurantName);
 
-		if (restaurant == null)
-		{
+		if (restaurant == null) {
 			throw new ItemException("Restaurant not found");
-		}
-		else
-		{
+		} else {
 			// associate item in restaurent
 			restaurant.getItemList().add(item);
 			// associate Restaurant with item

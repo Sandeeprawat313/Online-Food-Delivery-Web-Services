@@ -1,15 +1,12 @@
 package com.foodexpress.exception;
 
-public class ItemException extends Exception
-{
+public class ItemException extends RuntimeException {
 
-	public ItemException()
-	{
+	public ItemException() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ItemException(String messages)
-	{
+	public ItemException(String messages) {
 		// TODO Auto-generated constructor stub
 		super(messages);
 	}

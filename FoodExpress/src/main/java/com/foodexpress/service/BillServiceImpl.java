@@ -4,12 +4,20 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.foodexpress.authorization.model.CustomerSession;
+import com.foodexpress.authorization.repository.CustomerSessionDao;
 import com.foodexpress.exception.BillException;
 import com.foodexpress.model.Bill;
+import com.foodexpress.model.Customer;
+import com.foodexpress.model.Items;
+import com.foodexpress.model.OrderDetails;
 import com.foodexpress.repository.BillDao;
+import com.foodexpress.repository.CustomerDao;
+import com.foodexpress.repository.OrderDao;
 
 @Service
 public class BillServiceImpl implements BillService {
@@ -17,11 +25,49 @@ public class BillServiceImpl implements BillService {
 	@Autowired
 	public BillDao bDao;
 
-	@Override
-	public Bill addBill(Bill bill) throws BillException {
-		Bill savedBill = bDao.save(bill);
+	@Autowired
+	public CustomerSessionDao cSDao;
 
-		return savedBill;
+	@Autowired
+	public OrderDao oDao;
+
+	@Autowired
+	public CustomerDao cDao;
+
+	// 6 customer ===> add services
+	@Override
+	public Bill addBill(Integer orderId, String uniqueId) throws BillException {
+		CustomerSession cs = cSDao.findByUniqueId(uniqueId);
+		if (cs != null) {
+			Optional<OrderDetails> opt = oDao.findById(orderId);
+			Optional<Customer> optC = cDao.findById(cs.getCustomerId());
+			if (opt.isPresent() && optC.isPresent()) {
+				OrderDetails orderDetails = opt.get();
+				Customer customerDetails = optC.get();
+				Bill bill = new Bill();
+				bill.setBillDate(orderDetails.getOrderDate());
+				bill.setCAddress(customerDetails.getAddress());
+				bill.setCustomerName(customerDetails.getFirstName() + " " + customerDetails.getLastName());
+
+				List<Items> listItems = orderDetails.getCart().getItemList();
+				double totalCost = 0;
+				Integer totalItem = 0;
+				for (Items i : listItems) {
+					totalCost += i.getQuantity() * i.getCostPerUnit();
+					totalItem += i.getQuantity();
+				}
+				bill.setTotalCost(totalCost);
+
+				bill.setTotalItem(totalItem);
+
+				return bDao.save(bill);
+			} else {
+				throw new BillException("Wrong order Id , please pass correct Order Id");
+			}
+
+		} else {
+			throw new BillException("Customer is not logged in");
+		}
 	}
 
 	@Override

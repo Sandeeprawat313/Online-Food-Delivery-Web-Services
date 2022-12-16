@@ -8,8 +8,7 @@ import com.foodexpress.exception.RestaurantException;
 import com.foodexpress.model.Restaurants;
 
 @Service
-public interface RestaurantService
-{
+public interface RestaurantService {
 
 	public Restaurants createRestaurant(Restaurants restaurants) throws RestaurantException;
 
@@ -17,7 +16,7 @@ public interface RestaurantService
 
 	public Restaurants removeRestaurant(Integer resturantid) throws RestaurantException;
 
-	public Restaurants viewRestaurant(Restaurants restaurants) throws RestaurantException;
+	public List<Restaurants> viewRestaurant(String uniqueId) throws RestaurantException;
 
 	public List<Restaurants> viewNearByRestaurant(String location) throws RestaurantException;
 

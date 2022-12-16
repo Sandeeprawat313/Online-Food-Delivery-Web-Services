@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.foodexpress.authorization.model.CustomerSession;
+import com.foodexpress.authorization.repository.CustomerSessionDao;
 import com.foodexpress.exception.RestaurantException;
 import com.foodexpress.model.Items;
 import com.foodexpress.model.Restaurants;
@@ -14,8 +16,7 @@ import com.foodexpress.repository.ItemsDao;
 import com.foodexpress.repository.RestaurantDao;
 
 @Service
-public class RestaurantServiceImpl implements RestaurantService
-{
+public class RestaurantServiceImpl implements RestaurantService {
 
 	@Autowired
 	private RestaurantDao rDao;
@@ -23,20 +24,20 @@ public class RestaurantServiceImpl implements RestaurantService
 	@Autowired
 	private ItemsDao iDao;
 
+	@Autowired
+	private CustomerSessionDao cSDao;
+
 	@Override
-	public Restaurants createRestaurant(Restaurants restaurants) throws RestaurantException
-	{
+	public Restaurants createRestaurant(Restaurants restaurants) throws RestaurantException {
 		Restaurants existrestaurants = rDao.findByRestaurantName(restaurants.getRestaurantName());
 
-		if (existrestaurants != null)
-		{
+		if (existrestaurants != null) {
 			throw new RestaurantException(restaurants.getRestaurantName() + " Resturant is Already Registerd with Us");
 		}
 
 		List<Items> itemslist = restaurants.getItemList();
 
-		for (Items items : itemslist)
-		{
+		for (Items items : itemslist) {
 			items.getListOfRestaurants().add(restaurants);
 		}
 
@@ -45,12 +46,10 @@ public class RestaurantServiceImpl implements RestaurantService
 	}
 
 	@Override
-	public Restaurants updateRestaurant(Restaurants restaurants) throws RestaurantException
-	{
+	public Restaurants updateRestaurant(Restaurants restaurants) throws RestaurantException {
 		// TODO Auto-generated method stub
 		Optional<Restaurants> idverifedresturantOPT = rDao.findById(restaurants.getRestaurantId());
-		if (idverifedresturantOPT.isEmpty())
-		{
+		if (idverifedresturantOPT.isEmpty()) {
 			throw new RestaurantException("Worng ID " + idverifedresturantOPT.get().getRestaurantId());
 		}
 
@@ -63,8 +62,7 @@ public class RestaurantServiceImpl implements RestaurantService
 
 		List<Items> listofItemsCommingfrombody = restaurants.getItemList();
 
-		for (Items items : listofItemsCommingfrombody)
-		{
+		for (Items items : listofItemsCommingfrombody) {
 			existrestaurants.getItemList().add(items);
 			// items.getListOfRestaurants().add(existrestaurants);
 		}
@@ -74,13 +72,11 @@ public class RestaurantServiceImpl implements RestaurantService
 	}
 
 	@Override
-	public Restaurants removeRestaurant(Integer resturantid) throws RestaurantException
-	{
+	public Restaurants removeRestaurant(Integer resturantid) throws RestaurantException {
 		// TODO Auto-generated method stub
 		Optional<Restaurants> idverifedresturantOPT = rDao.findById(resturantid);
 
-		if (idverifedresturantOPT.isEmpty())
-		{
+		if (idverifedresturantOPT.isEmpty()) {
 			throw new RestaurantException("Worng ID " + idverifedresturantOPT.get().getRestaurantId());
 		}
 
@@ -100,35 +96,44 @@ public class RestaurantServiceImpl implements RestaurantService
 		return existrestaurants;
 	}
 
+	//3. customer 
 	@Override
-	public Restaurants viewRestaurant(Restaurants restaurants) throws RestaurantException
-	{
+	public List<Restaurants> viewRestaurant(String uniqueId) throws RestaurantException {
+		CustomerSession cS = cSDao.findByUniqueId(uniqueId);
 
-		Optional<Restaurants> opt = rDao.findById(restaurants.getRestaurantId());
-
-		if (opt.isEmpty())
+		if (cS != null) {
+			List<Restaurants> list =  rDao.findAll();
+			return list;
+		}
 		{
-			throw new RestaurantException("No resturant Found with this ID");
+			throw new RestaurantException("Customer is not logged in");
 		}
 
-		Restaurants existrestaurants = opt.get();
 
-		if (existrestaurants.getRestaurantName().equals(restaurants.getRestaurantName())
-				&& existrestaurants.getContactNumber().equals(restaurants.getContactNumber()))
-		{
-			return existrestaurants;
-		}
-
-		else
-		{
-			throw new RestaurantException("Name or Phone Number missmatch with ID");
-		}
+//		Optional<Restaurants> opt = rDao.findById(restaurants.getRestaurantId());
+//
+//		if (opt.isEmpty())
+//		{
+//			throw new RestaurantException("No resturant Found with this ID");
+//		}
+//
+//		Restaurants existrestaurants = opt.get();
+//
+//		if (existrestaurants.getRestaurantName().equals(restaurants.getRestaurantName())
+//				&& existrestaurants.getContactNumber().equals(restaurants.getContactNumber()))
+//		{
+//			return existrestaurants;
+//		}
+//
+//		else
+//		{
+//			throw new RestaurantException("Name or Phone Number missmatch with ID");
+//		}
 
 	}
 
 	@Override
-	public List<Restaurants> viewNearByRestaurant(String location) throws RestaurantException
-	{
+	public List<Restaurants> viewNearByRestaurant(String location) throws RestaurantException {
 
 		List<Restaurants> allbyResturantList = rDao.getRestByLocation();
 
@@ -136,10 +141,8 @@ public class RestaurantServiceImpl implements RestaurantService
 
 		List<Restaurants> filteredResturant = new ArrayList<>();
 
-		for (Restaurants restaurants : allbyResturantList)
-		{
-			if (restaurants.getAddress().getCity().equalsIgnoreCase(location))
-			{
+		for (Restaurants restaurants : allbyResturantList) {
+			if (restaurants.getAddress().getCity().equalsIgnoreCase(location)) {
 				filteredResturant.add(restaurants);
 
 			}
@@ -149,8 +152,7 @@ public class RestaurantServiceImpl implements RestaurantService
 	}
 
 	@Override
-	public List<Restaurants> viewRestaurantByItemname(String itemname) throws RestaurantException
-	{
+	public List<Restaurants> viewRestaurantByItemname(String itemname) throws RestaurantException {
 		// TODO Auto-generated method stub
 		List<Items> itemList_jaha_pe_yea_milta_hai = iDao.findByItemName(itemname);
 
@@ -159,14 +161,12 @@ public class RestaurantServiceImpl implements RestaurantService
 		itemList_jaha_pe_yea_milta_hai
 				.forEach(s -> System.out.println(s.getItemName() + "==>" + s.getItemId() + "==++ "));
 
-		for (Items items : itemList_jaha_pe_yea_milta_hai)
-		{
+		for (Items items : itemList_jaha_pe_yea_milta_hai) {
 			allResturant.add(items.getListOfRestaurants().get(0));
 		}
 
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-		for (Restaurants restaurants : allResturant)
-		{
+		for (Restaurants restaurants : allResturant) {
 			System.out.println(restaurants.getRestaurantName());
 		}
 
@@ -175,12 +175,10 @@ public class RestaurantServiceImpl implements RestaurantService
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Override // MOST IMPORTANT
-	public Restaurants addRestaurant(Restaurants restaurant)
-	{
+	public Restaurants addRestaurant(Restaurants restaurant) {
 		List<Items> items = restaurant.getItemList();
 
-		for (Items item : items)
-		{
+		for (Items item : items) {
 			// associating each items with restaurant
 			item.getListOfRestaurants().add(restaurant);
 		}
