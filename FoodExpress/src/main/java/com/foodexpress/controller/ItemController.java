@@ -2,6 +2,8 @@ package com.foodexpress.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +23,16 @@ import com.foodexpress.service.ItemService;
 
 @RestController
 @RequestMapping("/item")
-public class ItemController {
+public class ItemController
+{
 
 	@Autowired
 	private ItemService iService;
 
 	@PostMapping("/add/{rstname}")
-	public ResponseEntity<Items> addItemsHandler(@PathVariable("rstname") String resturantname, @RequestBody Items item)
-			throws ItemException {
+	public ResponseEntity<Items> addItemsHandler(@PathVariable("rstname") String resturantname,
+			@Valid @RequestBody Items item) throws ItemException
+	{
 		Items addeditem = iService.addItemToRestaurant(resturantname, item);
 
 		return new ResponseEntity<Items>(addeditem, HttpStatus.ACCEPTED);
@@ -36,7 +40,8 @@ public class ItemController {
 
 	@PutMapping("/update/{rstname}")
 	public ResponseEntity<Items> updateItemsHandler(@PathVariable("rstname") String resturantname,
-			@RequestBody Items item) throws ItemException {
+			@Valid @RequestBody Items item) throws ItemException
+	{
 		Items updateditem = iService.updateItem(resturantname, item);
 
 		return new ResponseEntity<Items>(updateditem, HttpStatus.OK);
@@ -44,7 +49,8 @@ public class ItemController {
 
 	@GetMapping("/view/{rstname}/{id}")
 	public ResponseEntity<Items> viewItemHandler(@PathVariable("rstname") String resturantname,
-			@PathVariable("id") Integer itemid) throws ItemException {
+			@PathVariable("id") Integer itemid) throws ItemException
+	{
 		Items updateditem = iService.viewItem(resturantname, itemid);
 
 		return new ResponseEntity<Items>(updateditem, HttpStatus.OK);
@@ -53,7 +59,8 @@ public class ItemController {
 	// 4 viewAllItems ==>
 	@GetMapping("/viewallitemofrestnt/{restaurentId}/{uniqueId}")
 	public ResponseEntity<List<Items>> viewAllItemsOfRestaurentHandler(
-			@PathVariable("restaurentId") Integer restaurentId, @PathVariable("uniqueId") String uniqueId) {
+			@PathVariable("restaurentId") Integer restaurentId, @PathVariable("uniqueId") String uniqueId)
+	{
 
 		List<Items> allitem = iService.viewAllItemsOfRestaurent(restaurentId, uniqueId);
 
@@ -62,7 +69,8 @@ public class ItemController {
 
 	@GetMapping("/viewallitembyname/{itemname}")
 	public ResponseEntity<List<Items>> viewAllItemsByNameHandler(@PathVariable("itemname") String itemname)
-			throws ItemException {
+			throws ItemException
+	{
 		List<Items> allitem = iService.viewAllItemsByName(itemname);
 
 		return new ResponseEntity<List<Items>>(allitem, HttpStatus.OK);
@@ -79,19 +87,19 @@ public class ItemController {
 
 	@DeleteMapping("/delete/{restntId}/{uniqueId}")
 	public ResponseEntity<Items> removeItemHandler(@PathVariable("restntId") Integer restaurantId,
-			@PathVariable("uniqueId") String uniqueId, @RequestBody Items item)
-			throws ItemException, RestaurantException {
+			@PathVariable("uniqueId") String uniqueId, @Valid @RequestBody Items item)
+			throws ItemException, RestaurantException
+	{
 		Items allitem = iService.removeItem(restaurantId, uniqueId, item);
 
 		return new ResponseEntity<Items>(allitem, HttpStatus.OK);
 	}
 
-	// removeItem
-
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	@PostMapping("/items/{cname}")
-	public ResponseEntity<Items> addItemInList(@PathVariable("cname") String restaurantName, @RequestBody Items item)
-			throws RestaurantException, ItemException {
+	public ResponseEntity<Items> addItemInList(@PathVariable("cname") String restaurantName,
+			@Valid @RequestBody Items item) throws RestaurantException, ItemException
+	{
 		Items NewItem = iService.addItemToRestaurant(restaurantName, item);
 
 		return new ResponseEntity<>(NewItem, HttpStatus.CREATED);

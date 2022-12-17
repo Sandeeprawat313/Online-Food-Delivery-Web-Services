@@ -2,6 +2,8 @@ package com.foodexpress.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,20 +18,23 @@ import com.foodexpress.model.Customer;
 import com.foodexpress.service.CustomerService;
 
 @RestController
-public class CustomerControll {
+public class CustomerControll
+{
 
 	@Autowired
 	private CustomerService cService;
 
 	// dummy
 	@GetMapping("/hello")
-	public String sayHeloo() {
+	public String sayHeloo()
+	{
 		return "hello my name is sandeep rawat";
 	}
-	
+
 	// 1. add customer ==> registration
 	@PostMapping("/customers")
-	public ResponseEntity<Customer> customerRegistration(@RequestBody Customer customer) {
+	public ResponseEntity<Customer> customerRegistration(@Valid @RequestBody Customer customer)
+	{
 		Customer NewCustomer = cService.customerRegistration(customer);
 		return new ResponseEntity<Customer>(NewCustomer, HttpStatus.CREATED);
 	}
@@ -37,7 +42,8 @@ public class CustomerControll {
 	// 2 update customer details
 	@PostMapping("/customersupdate/{key}")
 	public ResponseEntity<Customer> updateCustomerDetails(@PathVariable("key") String uniqueId,
-			@RequestBody Customer updatedcustomer) {
+			@Valid @RequestBody Customer updatedcustomer)
+	{
 
 		Customer updatedCustomer = cService.updateCustomerDetails(uniqueId, updatedcustomer);
 
@@ -47,14 +53,16 @@ public class CustomerControll {
 	// 3remove customer (BY ADMIN ONLY)
 	@DeleteMapping("/customers/{uid}/{un}") // remove it from session also(pending)
 	public ResponseEntity<Customer> removeCustomer(@PathVariable("uid") String uniqueId,
-			@PathVariable("un") String userNameCustomer) {
+			@PathVariable("un") String userNameCustomer)
+	{
 		Customer removedCustomer = cService.removeCustomer(uniqueId, userNameCustomer);
 		return new ResponseEntity<Customer>(removedCustomer, HttpStatus.OK);
 	}
 
 	// 4 view customer (customer checking his own details)(Customers uniqueId)
 	@GetMapping("/customerDetails/{key}")
-	public ResponseEntity<Customer> showCustomerDetails(@PathVariable("key") String uniqueId) {
+	public ResponseEntity<Customer> showCustomerDetails(@PathVariable("key") String uniqueId)
+	{
 
 		Customer updatedCustomer = cService.showCustomerDetails(uniqueId);
 
@@ -63,7 +71,8 @@ public class CustomerControll {
 
 	// 5 get list of all customers (only by admin)==>hardcode admin details
 	@GetMapping("/customers/{uid}")
-	public ResponseEntity<List<Customer>> getAllCustomerDetails(@PathVariable("uid") String uniqueId) {
+	public ResponseEntity<List<Customer>> getAllCustomerDetails(@PathVariable("uid") String uniqueId)
+	{
 		List<Customer> list = cService.getAllCustomerDetails(uniqueId);
 
 		return new ResponseEntity<List<Customer>>(list, HttpStatus.OK);
