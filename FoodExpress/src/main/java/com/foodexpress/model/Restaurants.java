@@ -10,16 +10,51 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.Setter;
 
 @Entity
+@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Restaurants
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer restaurantId;
+
+	@NonNull
+	@NotBlank
+	@NotEmpty
+	@Size(min = 3, max = 10, message = "Restaurent name should 3 to 10")
 	private String restaurantName;
+
+	@NonNull
+	@NotBlank
+	@NotEmpty
+	@Size(min = 3, max = 10, message = "Restaurent Manager Name name should 3 to 10")
 	private String managerName;
+
+	@NonNull
+	@NotBlank
+	@NotEmpty
+	@Size(min = 10, max = 10, message = "Contact Number should 3 to 10")
 	private String contactNumber;
+
+	@NonNull
+	@NotBlank
+	@NotEmpty
+	@Size(min = 3, max = 10, message = "Password length should be 3 to 10")
 	private String password;
 
 	@Embedded
@@ -27,93 +62,5 @@ public class Restaurants
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Items> itemList = new ArrayList<>();
-
-	public Restaurants()
-	{
-		super();
-
-	}
-
-	public Restaurants(String restaurantName, String managerName, String contactNumber, String password,
-			Address address, List<Items> itemList)
-	{
-		super();
-		this.restaurantName = restaurantName;
-		this.managerName = managerName;
-		this.contactNumber = contactNumber;
-		this.password = password;
-		this.address = address;
-		this.itemList = itemList;
-	}
-
-	public Integer getRestaurantId()
-	{
-		return restaurantId;
-	}
-
-	public void setRestaurantId(Integer restaurantId)
-	{
-		this.restaurantId = restaurantId;
-	}
-
-	public String getRestaurantName()
-	{
-		return restaurantName;
-	}
-
-	public void setRestaurantName(String restaurantName)
-	{
-		this.restaurantName = restaurantName;
-	}
-
-	public String getManagerName()
-	{
-		return managerName;
-	}
-
-	public void setManagerName(String managerName)
-	{
-		this.managerName = managerName;
-	}
-
-	public String getContactNumber()
-	{
-		return contactNumber;
-	}
-
-	public void setContactNumber(String contactNumber)
-	{
-		this.contactNumber = contactNumber;
-	}
-
-	public String getPassword()
-	{
-		return password;
-	}
-
-	public void setPassword(String password)
-	{
-		this.password = password;
-	}
-
-	public Address getAddress()
-	{
-		return address;
-	}
-
-	public void setAddress(Address address)
-	{
-		this.address = address;
-	}
-
-	public List<Items> getItemList()
-	{
-		return itemList;
-	}
-
-	public void setItemList(List<Items> itemList)
-	{
-		this.itemList = itemList;
-	}
 
 }

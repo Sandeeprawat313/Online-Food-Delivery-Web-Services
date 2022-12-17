@@ -2,6 +2,8 @@ package com.foodexpress.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +22,16 @@ import com.foodexpress.service.RestaurantService;
 
 @RestController
 @RequestMapping("/restaurant")
-public class RestaurentController {
+public class RestaurentController
+{
 	@Autowired
 	private RestaurantService rService;
 
 	// 1. ADMIN ++> create customer
 	@PostMapping("/create")
-	public ResponseEntity<Restaurants> createRestaurantsHandler(@RequestBody Restaurants restaurant)
-			throws RestaurantException {
+	public ResponseEntity<Restaurants> createRestaurantsHandler(@Valid @RequestBody Restaurants restaurant)
+			throws RestaurantException
+	{
 		Restaurants newRestaurant = rService.createRestaurant(restaurant);
 
 		return new ResponseEntity<Restaurants>(newRestaurant, HttpStatus.CREATED);
@@ -35,8 +39,9 @@ public class RestaurentController {
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<Restaurants> updateRestaurantsHandler(@RequestBody Restaurants restaurant)
-			throws RestaurantException {
+	public ResponseEntity<Restaurants> updateRestaurantsHandler(@Valid @RequestBody Restaurants restaurant)
+			throws RestaurantException
+	{
 		Restaurants updatedRestaurant = rService.updateRestaurant(restaurant);
 
 		return new ResponseEntity<Restaurants>(updatedRestaurant, HttpStatus.OK);
@@ -45,7 +50,8 @@ public class RestaurentController {
 
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Restaurants> deleteRestaurantsHandler(@PathVariable("id") Integer restaurantID)
-			throws RestaurantException {
+			throws RestaurantException
+	{
 		Restaurants updatedRestaurant = rService.removeRestaurant(restaurantID);
 
 		return new ResponseEntity<Restaurants>(updatedRestaurant, HttpStatus.OK);
@@ -55,7 +61,8 @@ public class RestaurentController {
 	// 3 find restuarants>>>
 	@GetMapping("/find/{uid}")
 	public ResponseEntity<List<Restaurants>> viewRestaurantHandler(@PathVariable("uid") String uniqueId)
-			throws RestaurantException {
+			throws RestaurantException
+	{
 		List<Restaurants> listOfRestaurants = rService.viewRestaurant(uniqueId);
 
 		return new ResponseEntity<List<Restaurants>>(listOfRestaurants, HttpStatus.OK);
@@ -64,7 +71,8 @@ public class RestaurentController {
 
 	@GetMapping("/findbylocation/{location}")
 	public ResponseEntity<List<Restaurants>> findRestaurantsByLocationHandler(@PathVariable("location") String location)
-			throws RestaurantException {
+			throws RestaurantException
+	{
 		List<Restaurants> nearbyRestaurant = rService.viewNearByRestaurant(location);
 
 		return new ResponseEntity<List<Restaurants>>(nearbyRestaurant, HttpStatus.OK);
@@ -73,7 +81,8 @@ public class RestaurentController {
 
 	@GetMapping("/findallbyitemname/{itemname}")
 	public ResponseEntity<List<Restaurants>> findRestaurantByItemNameHandler(@PathVariable("itemname") String itemName)
-			throws RestaurantException {
+			throws RestaurantException
+	{
 		List<Restaurants> nearbyRestaurant = rService.viewRestaurantByItemname(itemName);
 
 		// List<Restaurants> restaurants = null;
@@ -96,7 +105,8 @@ public class RestaurentController {
 //	}
 
 	@GetMapping("/restaurants")
-	public String listRestaurants1() {
+	public String listRestaurants1()
+	{
 
 		return "Hello";
 
