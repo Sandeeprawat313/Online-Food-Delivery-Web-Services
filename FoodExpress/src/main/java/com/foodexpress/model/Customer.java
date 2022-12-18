@@ -5,12 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-
-import com.foodexpress.exception.Gender;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -43,15 +40,15 @@ public class Customer
 	@Size(min = 3, max = 10, message = "last name should 3 to 10")
 	private String lastName;
 
-	@NonNull
-	@NotBlank
-	@NotEmpty
-	@Min(value = 10, message = "minimum age required 10 for registration")
+//	@NonNull
+//	@NotBlank
+//	@NotEmpty
+//	@Min(value = 10, message = "minimum age required 10 for registration")
 	private Integer age;
 
-	@NotBlank(message = "Should be Either MALE OR FEMALE OR OTHERS in CAPITAL")
-	@NotEmpty(message = "Should be Either MALE  OR FEMALE OR OTHERS in CAPITAL")
-	private Gender gender;
+	@NotBlank
+	@NotEmpty
+	private String gender;
 
 	@NonNull
 	@NotBlank
