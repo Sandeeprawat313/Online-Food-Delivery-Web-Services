@@ -28,22 +28,15 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Items
-{
+public class Items {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer itemId;
 
-	@NonNull
-	@NotBlank
-	@NotEmpty
-	@Size(min = 3, max = 10, message = "Item Name  should 3 to 10")
+	@Size(min = 3, max = 10, message = "Item Name  should 3 to 20")
 	private String itemName;
 
-	@NonNull
-	@NotBlank
-	@NotEmpty
-	@Size(min = 3, max = 10, message = "Category name should 3 to 10")
+	@Size(min = 3, max = 10, message = "Category name should 3 to 20")
 	private String category;
 
 	private Integer quantity;
