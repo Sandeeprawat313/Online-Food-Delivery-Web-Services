@@ -13,6 +13,17 @@
 
 This project is developed by a team of 5 members with the help of the Spring-Boot framework. The main objective of this Web services application is to cater needs of front-end developers to call different types of API as per the requirement.
 
+<p>
+        <img
+        align="center"
+        src="https://github.com/parimalbiswas/tropical-jellyfish-2222/blob/main/ER%20-DIA.jpeg?raw=true"
+        alt="Coding"
+        width="700"
+        style="display: block"/>
+    </p>
+    <br>
+
+
 ## Tech Stack and Tools
 - Java
 - Spring Boot Framework
