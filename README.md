@@ -1,13 +1,21 @@
 # REST API for an Online Food Delivery Application
-<p align="left"> <img src="https://komarev.com/ghpvc/?username=sandeeprawat313&label=Profile%20views&color=0e75b6&style=flat" alt="sandeeprawat313" /> </p>
 
 
-This project is developed by team of 5 members during project week in Masai School. It can perform all the fundamental CRUD operations like add, update, view, delete etc with user validation.
+<p>
+        <img
+        align="center"
+        src="https://raw.githubusercontent.com/parimalbiswas/tropical-jellyfish-2222/main/Team.jpeg?token=GHSAT0AAAAAABVCP7DGN2IVTYXKVMPVVB4KY47BZPA"
+        alt="Coding"
+        width="700"
+        style="display: block"/>
+    </p>
+    <br>
+
+This project is developed by a team of 5 members with the help of the Spring-Boot framework. The main objective of this Web services application is to cater needs of front-end developers to call different types of API as per the requirement.
 
 ## Tech Stack and Tools
 - Java
-- Spring Boot
-- Spring Framework
+- Spring Boot Framework
 - Spring Data JPA
 - Hibernate
 - MySQL
@@ -24,7 +32,7 @@ This project is developed by team of 5 members during project week in Masai Scho
 - Bill Module
 
 ## Features
-- Customer and Admin authentication & validation with session uuid.
+- Customer and Admin authentication & validation with session uniqueId.
 - Admin Features:
  - Only registered admins with valid session id can do the CRUD operations like add/update/delete.
  - Admin can add restaurants and food items.
@@ -34,14 +42,11 @@ This project is developed by team of 5 members during project week in Masai Scho
  - Customer can register themselves with the application.
  - Customer can login to get the valid session token(id).
  - View list of available items.
- - Add items to food cart and placing the order.
- - View cart details, update and access other features
- 
+ - Add items to food cart, view cart details, placing the order, update and access other features.
+  
 ## Installation & Run
-- To run this API server, you should update the database config inside the application.properties file which is present in the src/main/resources folder.
-- Update the port number, username and password as per your local database config.
-
-```
+- To run this API server, you should update the database configuration inside the application.properties file which is present in the src/main/resources folder.
+- Update the port number, username and password as per your local database configuration.
 server.port=8008
 spring.datasource.url=jdbc:mysql://localhost:3306/FoodExpress;
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
