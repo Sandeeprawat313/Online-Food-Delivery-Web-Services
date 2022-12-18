@@ -99,15 +99,15 @@ public class BillServiceImpl implements BillService {
 	}
 
 	@Override
-	public Bill viewBill(Bill bill) throws BillException {
-		Optional<Bill> opt = bDao.findById(bill.getBillId());
+	public Bill viewBill(Integer billId) throws BillException {
+		Optional<Bill> opt = bDao.findById(billId);
 		Bill existingBill = null;
 		if (opt.isPresent()) {
 
 			existingBill = opt.get();
 
 		} else {
-			throw new BillException("No bill found by " + bill.getBillId() + " id");
+			throw new BillException("No bill found by " + billId + " id");
 		}
 
 		return existingBill;
@@ -126,9 +126,21 @@ public class BillServiceImpl implements BillService {
 	}
 
 	@Override
-	public double calculateTotalCost(Bill bill) throws BillException {
-		// TODO Auto-generated method stub
-		return 0;
+	public double calculateTotalCost(Integer billId) throws BillException {
+
+		double total = 0;
+
+		Optional<Bill> bOpt = bDao.findById(billId);
+
+		if (bOpt.isPresent()) {
+			Bill bill = bOpt.get();
+			total = bill.getTotalCost();
+
+		} else {
+			throw new BillException("No bill found by this " + billId + " id");
+		}
+
+		return total;
 	}
 
 }
