@@ -24,7 +24,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@ToString
+//@ToString
 @Getter
 @Setter
 public class OrderDetails
@@ -36,10 +36,10 @@ public class OrderDetails
 
 	private LocalDateTime orderDate;
 
-	@NonNull
-	@NotBlank
-	@NotEmpty
-	@Size(min = 3, max = 10, message = "Order Status should 3 to 10")
+//	@NonNull
+//	@NotBlank
+//	@NotEmpty
+//	@Size(min = 3, max = 10, message = "Order Status should 3 to 10")
 	private String orderStatus;
 
 	@OneToOne(cascade = CascadeType.ALL)

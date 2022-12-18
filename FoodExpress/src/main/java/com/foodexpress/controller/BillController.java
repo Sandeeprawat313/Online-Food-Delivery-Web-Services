@@ -33,14 +33,14 @@ public class BillController
 
 	}
 
-	@PutMapping("/removeBill")
-	public ResponseEntity<Bill> removeBill(@Valid @RequestBody Bill bill) throws BillException
-	{
-
-		Bill removedBill = bService.removeBill(bill);
-
-		return new ResponseEntity<Bill>(removedBill, HttpStatus.ACCEPTED);
-
-	}
+//	@PutMapping("/removeBill")
+//	public ResponseEntity<Bill> removeBill(@Valid @RequestBody Bill bill) throws BillException
+//	{
+//
+//		Bill removedBill = bService.removeBill(bill);
+//
+//		return new ResponseEntity<Bill>(removedBill, HttpStatus.ACCEPTED);
+//
+//	}
 
 }

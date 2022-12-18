@@ -42,21 +42,15 @@ public class OrderServiceImpl implements OrderService {
 				od.setOrderDate(LocalDateTime.now());
 				od.setOrderStatus("Placed");
 				od.setCart(foodCart);
-				// cDao.delete(foodCart);
-				System.out.println(foodCart);
-				return oDao.save(od);
+				oDao.save(od);
+				return od;
 
 			} else {
 				throw new CartNotFoundException("No item found in your cart");
 			}
-		}
-		{
+		} else {
 			throw new OrderException("customer is not logged in");
 		}
-
-//		OrderDetails savedOrder = oDao.save(order);
-//
-//		return savedOrder;
 
 	}
 
