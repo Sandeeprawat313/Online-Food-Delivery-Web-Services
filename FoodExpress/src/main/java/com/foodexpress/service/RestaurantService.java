@@ -12,7 +12,7 @@ public interface RestaurantService {
 
 	public Restaurants createRestaurant(Restaurants restaurants) throws RestaurantException;
 
-	public Restaurants updateRestaurant(Restaurants restaurants) throws RestaurantException;
+	public Restaurants updateRestaurant(String uniqueId,Restaurants restaurants) throws RestaurantException;
 
 	public Restaurants removeRestaurant(Integer resturantid) throws RestaurantException;
 
