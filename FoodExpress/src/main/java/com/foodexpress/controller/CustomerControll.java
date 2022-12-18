@@ -24,15 +24,9 @@ public class CustomerControll
 	@Autowired
 	private CustomerService cService;
 
-	// dummy
-	@GetMapping("/hello")
-	public String sayHeloo()
-	{
-		return "hello my name is sandeep rawat";
-	}
 
 	// 1. add customer ==> registration
-	@PostMapping("/customers")
+	@PostMapping("/customersRegistration")
 	public ResponseEntity<Customer> customerRegistration(@Valid @RequestBody Customer customer)
 	{
 		Customer NewCustomer = cService.customerRegistration(customer);
@@ -61,7 +55,7 @@ public class CustomerControll
 	}
 
 	// 4 view customer (customer checking his own details)(Customers uniqueId)
-	@GetMapping("/customerDetails/{key}")
+	@GetMapping("/customerOwnDetails/{key}")
 	public ResponseEntity<Customer> showCustomerDetails(@PathVariable("key") String uniqueId)
 	{
 
@@ -71,7 +65,7 @@ public class CustomerControll
 	}
 
 	// 5 get list of all customers (only by admin)==>hardcode admin details
-	@GetMapping("/customers/{uid}")
+	@GetMapping("/viewAllcustomers/{uid}")
 	public ResponseEntity<List<Customer>> getAllCustomerDetails(@PathVariable("uid") String uniqueId)
 	{
 		List<Customer> list = cService.getAllCustomerDetails(uniqueId);

@@ -69,7 +69,7 @@ public class BillServiceImpl implements BillService {
 			throw new BillException("Customer is not logged in");
 		}
 	}
-
+	
 	@Override
 	public Bill removeBill(Bill bill) throws BillException {
 		Optional<Bill> opt = bDao.findById(bill.getBillId());
