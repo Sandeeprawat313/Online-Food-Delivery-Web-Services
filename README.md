@@ -13,6 +13,16 @@
 
 This project is developed by a team of 5 members with the help of the Spring-Boot framework. The main objective of this Web services application is to cater needs of front-end developers to call different types of API as per the requirement.
 
+
+## Tech Stack and Tools
+- Java
+- Spring Boot Framework
+- Spring Data JPA
+- Hibernate
+- MySQL
+- Swagger-UI
+- Lombok
+
 ## ER- Diagram
 <p>
         <img
@@ -24,15 +34,6 @@ This project is developed by a team of 5 members with the help of the Spring-Boo
     </p>
     <br>
 
-
-## Tech Stack and Tools
-- Java
-- Spring Boot Framework
-- Spring Data JPA
-- Hibernate
-- MySQL
-- Swagger-UI
-- Lombok
 
 ## Modules
 - Login Module
