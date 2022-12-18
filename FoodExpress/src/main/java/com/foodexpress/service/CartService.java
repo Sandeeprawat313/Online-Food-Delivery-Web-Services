@@ -19,10 +19,10 @@ public interface CartService {
 	public FoodCart addItemToCart(Integer itemId, String uniueId)
 			throws CartNotFoundException, ItemException, CustomerLoginException;
 
-	public FoodCart increaseQuantity(Integer cart_id, Integer quantity, Integer item_Id)
+	public FoodCart increaseQuantity(String unique_id, Integer quantity, Integer item_Id)
 			throws CartNotFoundException, ItemException;
 
-	public FoodCart reduceQuantity(Integer cart_id, Integer quantity, Integer item_Id)
+	public FoodCart reduceQuantity(String unique_id, Integer quantity, Integer item_Id)
 			throws CartNotFoundException, ItemException;
 
 	public FoodCart removeItem(Integer cartId, Integer itemId) throws CartNotFoundException, ItemException;
@@ -31,6 +31,6 @@ public interface CartService {
 
 	public FoodCart viewCart(Integer cartid) throws CartNotFoundException;
 
-	public FoodCart saveCart(String key) throws CartNotFoundException;
+	
 
 }
