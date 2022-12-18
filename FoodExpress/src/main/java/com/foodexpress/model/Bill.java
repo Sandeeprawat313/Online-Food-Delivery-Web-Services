@@ -24,22 +24,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Bill
-{
+public class Bill {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer billId;
 
-	@NonNull
-	@NotBlank
-	@NotEmpty
-	@Size(min = 3, max = 10, message = "customerName name should 3 to 10")
 	private String customerName;
 
-	@NonNull
-	@NotBlank
-	@NotEmpty
 	private LocalDateTime billDate;
 
 	private Double totalCost;

@@ -15,7 +15,7 @@ public class OrderDetailsController {
 	@Autowired
 	public OrderService oService;
 
-	@PostMapping("/order/{cartId}/{uniqueId}")
+	@PostMapping("/placeorder/{cartId}/{uniqueId}")
 	public ResponseEntity<OrderDetails> addOrder(@PathVariable("cartId") Integer cartId,
 			@PathVariable("uniqueId") String uniqueId) {
 		OrderDetails orderDetails = oService.addOrder(cartId, uniqueId);

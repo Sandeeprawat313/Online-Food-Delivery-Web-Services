@@ -59,7 +59,8 @@ public class BillServiceImpl implements BillService {
 
 				bill.setTotalItem(totalItem);
 
-				return bDao.save(bill);
+				bDao.save(bill);
+				return bill;
 			} else {
 				throw new BillException("Wrong order Id , please pass correct Order Id");
 			}
