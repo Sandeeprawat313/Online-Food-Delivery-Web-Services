@@ -27,7 +27,7 @@ This project is developed by a team of 5 members with the help of the Spring-Boo
 <p>
         <img
         align="center"
-        src="https://github.com/parimalbiswas/tropical-jellyfish-2222/blob/main/ER%20-DIA.jpeg?raw=true"
+        src="https://github.com/parimalbiswas/tropical-jellyfish-2222/blob/main/ER%20-DIA.jpg?raw=true"
         alt="Coding"
         width="700"
         style="display: block"/>
