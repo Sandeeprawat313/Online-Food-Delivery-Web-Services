@@ -1,4 +1,4 @@
-package com.foodexpress.authorization.model;
+package com.foodexpress.model;
 
 import lombok.Data;
 

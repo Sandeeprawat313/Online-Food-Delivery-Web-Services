@@ -1,9 +1,9 @@
-package com.foodexpress.authorization.service;
+package com.foodexpress.service;
 
 import org.springframework.stereotype.Service;
 
-import com.foodexpress.authorization.exception.CustomerLoginException;
-import com.foodexpress.authorization.model.CustomerLoginDTO;
+import com.foodexpress.exception.CustomerLoginException;
+import com.foodexpress.model.CustomerLoginDTO;
 
 @Service
 public interface CustomerLoginService {

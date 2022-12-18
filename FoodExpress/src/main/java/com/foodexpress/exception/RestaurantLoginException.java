@@ -1,4 +1,4 @@
-package com.foodexpress.authorization.exception;
+package com.foodexpress.exception;
 
 public class RestaurantLoginException extends RuntimeException{
 

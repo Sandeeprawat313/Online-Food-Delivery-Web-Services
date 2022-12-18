@@ -50,6 +50,7 @@ public class CustomerControll
 		return new ResponseEntity<Customer>(updatedCustomer, HttpStatus.OK);
 	}
 
+	// check 
 	// 3remove customer (BY ADMIN ONLY)
 	@DeleteMapping("/customers/{uid}/{un}") // remove it from session also(pending)
 	public ResponseEntity<Customer> removeCustomer(@PathVariable("uid") String uniqueId,

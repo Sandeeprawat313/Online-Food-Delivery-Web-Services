@@ -8,16 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.foodexpress.authorization.model.CustomerSession;
-import com.foodexpress.authorization.repository.CustomerSessionDao;
 import com.foodexpress.exception.CartNotFoundException;
 import com.foodexpress.exception.ItemException;
-import com.foodexpress.model.Customer;
 import com.foodexpress.model.FoodCart;
+import com.foodexpress.repository.CustomerSessionDao;
 import com.foodexpress.service.CartService;
 
 @RestController

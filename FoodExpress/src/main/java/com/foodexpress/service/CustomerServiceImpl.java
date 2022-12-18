@@ -1,17 +1,19 @@
 package com.foodexpress.service;
 
-import java.lang.StackWalker.Option;
+import java.lang.module.ResolutionException;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.foodexpress.authorization.model.CustomerSession;
-import com.foodexpress.authorization.repository.CustomerSessionDao;
 import com.foodexpress.exception.CustomerException;
 import com.foodexpress.model.Customer;
+import com.foodexpress.model.CustomerSession;
+import com.foodexpress.model.RestaurantSession;
 import com.foodexpress.repository.CustomerDao;
+import com.foodexpress.repository.CustomerSessionDao;
+import com.foodexpress.repository.RestaurantSessionDao;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -21,6 +23,9 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private CustomerSessionDao cSDao;
+
+	@Autowired
+	private RestaurantSessionDao rSDao;
 
 	// 1. add customer
 	@Override
@@ -56,21 +61,24 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 	}
 
+	// to be checked
 	// 3remove customer (BY ADMIN ONLY)
-	String username = "12345";
-	String password = "12345";
-	String uniqueId = "Kq6O1WIv";
+	String username = "8777686325";
+	String password = "8777686325";
 
 	@Override
 	public Customer removeCustomer(String uniqueId, String userNameCustomer) {
 		// if admin is logged in
-		if (true) {
+
+		RestaurantSession ResSession = rSDao.findByUniqueId(uniqueId);
+
+		if (ResSession != null && ResSession.getId().equals(username)) {
 			Customer targetCustomer = cDao.findByMobileNumber(userNameCustomer);
 			if (targetCustomer != null) {
 				cDao.delete(targetCustomer);
 				return targetCustomer;
 			} else {
-				throw new CustomerException("No customer found with this Username");
+				throw new CustomerException("No Admin found with this Username");
 			}
 		} else {
 			throw new CustomerException("Admin must be logged in");
@@ -95,17 +103,19 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 
 	}
-
+	
 	// 5 get list of all customers (only by admin)
 	@Override
 	public List<Customer> getAllCustomerDetails(String uniqueId) {
 		// if admin is logged in
-		if (true) {
+		RestaurantSession ResSession = rSDao.findByUniqueId(uniqueId);
+
+		if (ResSession != null && ResSession.getId().equals(username)) {
 			List<Customer> list = cDao.findAll();
 			return list;
 		}
 		{
-			throw new CustomerException("Only Amin can checkoutout all the customer details");
+			throw new ResolutionException("Only Amin can checkoutout all the customer details/Admin login not found");
 		}
 
 	}

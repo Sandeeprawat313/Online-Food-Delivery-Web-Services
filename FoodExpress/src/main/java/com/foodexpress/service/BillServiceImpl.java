@@ -4,19 +4,18 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.foodexpress.authorization.model.CustomerSession;
-import com.foodexpress.authorization.repository.CustomerSessionDao;
 import com.foodexpress.exception.BillException;
 import com.foodexpress.model.Bill;
 import com.foodexpress.model.Customer;
+import com.foodexpress.model.CustomerSession;
 import com.foodexpress.model.Items;
 import com.foodexpress.model.OrderDetails;
 import com.foodexpress.repository.BillDao;
 import com.foodexpress.repository.CustomerDao;
+import com.foodexpress.repository.CustomerSessionDao;
 import com.foodexpress.repository.OrderDao;
 
 @Service
