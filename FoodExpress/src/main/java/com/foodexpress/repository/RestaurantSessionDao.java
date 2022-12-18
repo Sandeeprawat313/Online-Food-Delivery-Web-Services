@@ -1,9 +1,9 @@
-package com.foodexpress.authorization.repository;
+package com.foodexpress.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.foodexpress.authorization.model.RestaurantSession;
+import com.foodexpress.model.RestaurantSession;
 
 @Repository
 public interface RestaurantSessionDao extends JpaRepository<RestaurantSession, Integer>{

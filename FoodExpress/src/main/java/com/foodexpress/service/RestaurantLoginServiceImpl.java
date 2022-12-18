@@ -1,4 +1,4 @@
-package com.foodexpress.authorization.service;
+package com.foodexpress.service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -6,12 +6,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.foodexpress.authorization.exception.RestaurantLoginException;
-import com.foodexpress.authorization.model.RestaurantLoginDTO;
-import com.foodexpress.authorization.model.RestaurantSession;
-import com.foodexpress.authorization.repository.RestaurantSessionDao;
+import com.foodexpress.exception.RestaurantLoginException;
+import com.foodexpress.model.RestaurantLoginDTO;
+import com.foodexpress.model.RestaurantSession;
 import com.foodexpress.model.Restaurants;
 import com.foodexpress.repository.RestaurantDao;
+import com.foodexpress.repository.RestaurantSessionDao;
 
 import net.bytebuddy.utility.RandomString;
 

@@ -5,14 +5,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.foodexpress.authorization.model.CustomerSession;
-import com.foodexpress.authorization.repository.CustomerSessionDao;
 import com.foodexpress.exception.CartNotFoundException;
 import com.foodexpress.exception.ItemException;
+import com.foodexpress.model.CustomerSession;
 import com.foodexpress.model.FoodCart;
 import com.foodexpress.model.Items;
 import com.foodexpress.repository.CartDao;
 import com.foodexpress.repository.CustomerDao;
+import com.foodexpress.repository.CustomerSessionDao;
 import com.foodexpress.repository.ItemsDao;
 
 @Service

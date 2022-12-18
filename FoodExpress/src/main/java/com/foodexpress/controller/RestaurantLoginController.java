@@ -1,4 +1,4 @@
-package com.foodexpress.authorization.controller;
+package com.foodexpress.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.foodexpress.authorization.model.RestaurantLoginDTO;
-import com.foodexpress.authorization.service.RestaurantLoginService;
+import com.foodexpress.model.RestaurantLoginDTO;
+import com.foodexpress.service.RestaurantLoginService;
 
 @RestController
 public class RestaurantLoginController {
