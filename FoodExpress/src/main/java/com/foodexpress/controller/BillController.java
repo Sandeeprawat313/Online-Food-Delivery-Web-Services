@@ -1,5 +1,7 @@
 package com.foodexpress.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +16,16 @@ import com.foodexpress.model.Bill;
 import com.foodexpress.service.BillService;
 
 @RestController
-public class BillController {
+public class BillController
+{
 
 	@Autowired
 	public BillService bService;
 
 	@PostMapping("/addBill/{orderId}/{uniqueId}")
 	public ResponseEntity<Bill> addBill(@PathVariable("orderId") Integer orderId,
-			@PathVariable("uniqueId") String uniqueId) {
+			@PathVariable("uniqueId") String uniqueId)
+	{
 
 		Bill savedBill = bService.addBill(orderId, uniqueId);
 
@@ -30,7 +34,8 @@ public class BillController {
 	}
 
 	@PutMapping("/removeBill")
-	public ResponseEntity<Bill> removeBill(@RequestBody Bill bill) throws BillException {
+	public ResponseEntity<Bill> removeBill(@Valid @RequestBody Bill bill) throws BillException
+	{
 
 		Bill removedBill = bService.removeBill(bill);
 
