@@ -28,23 +28,18 @@ public class FoodCartController {
 
 	@Autowired
 	public CustomerSessionDao csDao;
+	
+	
+	
+	
+	// 5 customer ===>
+		@PostMapping("/addItemToFoodCart/{itemId}/{uniqueId}")
+		public ResponseEntity<FoodCart> addItemToCart(@PathVariable("itemId") Integer itemId,
+				@PathVariable("uniqueId") String uniqueId) {
+			FoodCart updatedCart = cartServices.addItemToCart(itemId, uniqueId);
+			return new ResponseEntity<FoodCart>(updatedCart, HttpStatus.ACCEPTED);
+		}
 
-//	@PostMapping("/FoodCartRegister")
-//	public ResponseEntity<FoodCart> FoodCartRegistration(  @RequestParam String key,@RequestBody FoodCart cart) throws CartNotFoundException
-//	{
-//		
-//		CustomerSession cs=csDao.findByUniqueId(key);
-//		if(cs.getUniqueId()!=null && cart!=null) {
-//		
-//		FoodCart carts= cartServices.saveCart(cart);
-//		return new ResponseEntity<FoodCart>(carts, HttpStatus.CREATED);
-//
-//	}
-//		else
-//		{
-//			throw new CartNotFoundException();
-//		}
-//	}
 
 	@GetMapping("/viewcart/{id}")
 	public ResponseEntity<FoodCart> viewcart(@PathVariable("id") Integer id) throws CartNotFoundException {
@@ -53,51 +48,32 @@ public class FoodCartController {
 
 	}
 
-	@PostMapping("/registerCart/{key}")
-	public ResponseEntity<FoodCart> saveCartDetails(@PathVariable("key") String key) throws CartNotFoundException {
 
-		FoodCart f = cartServices.saveCart(key);
-		return new ResponseEntity<FoodCart>(f, HttpStatus.CREATED);
 
-	}
+	
 
-	// original
-//	@PutMapping("/addItemToFoodCart/{cartId}/{itemId}")
-//	public ResponseEntity<FoodCart> addItemToCart(@PathVariable("cartId") Integer cartId, @PathVariable("itemId") Integer itemId) throws CartNotFoundException, ItemException{
-//		FoodCart updatedCart = cartServices.addItemToCart(cartId, itemId);
-//		return new ResponseEntity<FoodCart>(updatedCart, HttpStatus.ACCEPTED);
-//	}
-
-	// 5 customer ===>
-	@PostMapping("/addItemToFoodCart/{itemId}/{uniqueId}")
-	public ResponseEntity<FoodCart> addItemToCart(@PathVariable("itemId") Integer itemId,
-			@PathVariable("uniqueId") String uniqueId) {
-		FoodCart updatedCart = cartServices.addItemToCart(itemId, uniqueId);
-		return new ResponseEntity<FoodCart>(updatedCart, HttpStatus.ACCEPTED);
-	}
-
-	@PutMapping("/increaseQuantity/{cartId}/{itemId}/{quantity}")
-	public ResponseEntity<FoodCart> increaseQuantity(@PathVariable("cartId") Integer cartId,
+	@PutMapping("/increaseQuantity/{uniqueid}/{itemId}/{quantity}")
+	public ResponseEntity<FoodCart> increaseQuantity(@PathVariable("uniqueid") String uniqueid,
 			@PathVariable("itemId") Integer itemId, @PathVariable("quantity") Integer quantity)
 			throws CartNotFoundException, ItemException {
 
-		FoodCart updatedQuantity = cartServices.increaseQuantity(cartId, quantity, itemId);
+		FoodCart updatedQuantity = cartServices.increaseQuantity(uniqueid, quantity, itemId);
 
 		return new ResponseEntity<FoodCart>(updatedQuantity, HttpStatus.ACCEPTED);
 	}
 
-	@PutMapping("/reduceQuantity/{cartId}/{itemId}/{quantity}")
-	public ResponseEntity<FoodCart> reduceQuantity(@PathVariable("cartId") Integer cartId,
+	@PutMapping("/reduceQuantity/{uniqueid}/{itemId}/{quantity}")
+	public ResponseEntity<FoodCart> reduceQuantity(@PathVariable("uniqueid") String uniqueid,
 			@PathVariable("itemId") Integer itemId, @PathVariable("quantity") Integer quantity)
 			throws CartNotFoundException, ItemException {
 
-		FoodCart updatedQuantity = cartServices.increaseQuantity(cartId, quantity, itemId);
+		FoodCart updatedQuantity = cartServices.increaseQuantity(uniqueid, quantity, itemId);
 
 		return new ResponseEntity<FoodCart>(updatedQuantity, HttpStatus.ACCEPTED);
 	}
 
 	@DeleteMapping("/ClearCart/{id}")
-	public ResponseEntity<FoodCart> CartRegistration(@PathVariable("id") Integer cart_id) throws CartNotFoundException {
+	public ResponseEntity<FoodCart> ClearRegistration(@PathVariable("id") Integer cart_id) throws CartNotFoundException {
 //		
 		FoodCart carts = cartServices.clearCart(cart_id);
 		return new ResponseEntity<FoodCart>(carts, HttpStatus.OK);
