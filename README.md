@@ -4,7 +4,7 @@
 <p>
         <img
         align="center"
-        src="https://raw.githubusercontent.com/parimalbiswas/tropical-jellyfish-2222/main/Team.jpeg?token=GHSAT0AAAAAABVCP7DGN2IVTYXKVMPVVB4KY47BZPA"
+        src="https://github.com/parimalbiswas/tropical-jellyfish-2222/blob/main/Team.jpeg"
         alt="Coding"
         width="700"
         style="display: block"/>
