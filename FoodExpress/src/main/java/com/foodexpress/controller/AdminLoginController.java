@@ -12,17 +12,17 @@ import com.foodexpress.model.RestaurantLoginDTO;
 import com.foodexpress.service.RestaurantLoginService;
 
 @RestController
-public class RestaurantLoginController {
+public class AdminLoginController {
 
 	@Autowired
 	private RestaurantLoginService rLService;
 
-	@PostMapping("/restaurantLogin")
+	@PostMapping("/AdminLogin")
 	public String restaurantLogin(@RequestBody RestaurantLoginDTO dto) {
 		return rLService.restaurantLogin(dto);
 	}
 
-	@PatchMapping("/restaurantLogout/{uniqueId}")
+	@PatchMapping("/AdminLoginLogout/{uniqueId}")
 	public String restaurantLogout(@PathVariable("uniqueId") String uniqueId) {
 		return rLService.restaurantLogout(uniqueId);
 	}
