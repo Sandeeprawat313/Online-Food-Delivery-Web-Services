@@ -7,13 +7,17 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.foodexpress.exception.CustomerException;
 import com.foodexpress.exception.RestaurantException;
+import com.foodexpress.model.Customer;
 import com.foodexpress.model.CustomerSession;
 import com.foodexpress.model.Items;
+import com.foodexpress.model.RestaurantSession;
 import com.foodexpress.model.Restaurants;
 import com.foodexpress.repository.CustomerSessionDao;
 import com.foodexpress.repository.ItemsDao;
 import com.foodexpress.repository.RestaurantDao;
+import com.foodexpress.repository.RestaurantSessionDao;
 
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
@@ -26,6 +30,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 	@Autowired
 	private CustomerSessionDao cSDao;
+
+	@Autowired
+	private RestaurantSessionDao rSDao;
 
 	@Override
 	public Restaurants createRestaurant(Restaurants restaurants) throws RestaurantException {
@@ -45,29 +52,62 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 	}
 
+	String username = "8777686325";
+	String password = "8777686325";
+
+	// 1000 check with
 	@Override
-	public Restaurants updateRestaurant(Restaurants restaurants) throws RestaurantException {
-		// TODO Auto-generated method stub
-		Optional<Restaurants> idverifedresturantOPT = rDao.findById(restaurants.getRestaurantId());
-		if (idverifedresturantOPT.isEmpty()) {
-			throw new RestaurantException("Worng ID " + idverifedresturantOPT.get().getRestaurantId());
+	public Restaurants updateRestaurant(String uniqueId, Restaurants restaurants) throws RestaurantException {
+		RestaurantSession ResSession = rSDao.findByUniqueId(uniqueId);
+		// Customer Admin = cDao.findByMobileNumber(userNameCustomer);
+
+		if (ResSession != null) {
+			Optional<Restaurants> opt = rDao.findById(ResSession.getRestaurantId());
+			Restaurants admin = opt.get();
+			if (admin.getContactNumber().equals(username)) {
+
+				admin.setAddress(restaurants.getAddress());
+				admin.setContactNumber(restaurants.getContactNumber());
+				admin.setManagerName(restaurants.getManagerName());
+				admin.setRestaurantName(restaurants.getRestaurantName());
+
+				List<Items> listofItemsCommingfrombody = restaurants.getItemList();
+
+				for (Items items : listofItemsCommingfrombody) {
+					admin.getItemList().add(items);
+					// items.getListOfRestaurants().add(existrestaurants);
+				}
+
+				return rDao.save(admin);
+
+			} else {
+				throw new CustomerException("Admin must be logged in");
+			}
+
+		} else {
+			throw new CustomerException("Please login first");
 		}
 
-		Restaurants existrestaurants = idverifedresturantOPT.get();
-
-		existrestaurants.setAddress(restaurants.getAddress());
-		existrestaurants.setContactNumber(restaurants.getContactNumber());
-		existrestaurants.setManagerName(restaurants.getManagerName());
-		existrestaurants.setRestaurantName(restaurants.getRestaurantName());
-
-		List<Items> listofItemsCommingfrombody = restaurants.getItemList();
-
-		for (Items items : listofItemsCommingfrombody) {
-			existrestaurants.getItemList().add(items);
-			// items.getListOfRestaurants().add(existrestaurants);
-		}
-
-		return rDao.save(existrestaurants);
+//		Optional<Restaurants> idverifedresturantOPT = rDao.findById(restaurants.getRestaurantId());
+//		if (idverifedresturantOPT.isEmpty()) {
+//			throw new RestaurantException("Worng ID " + idverifedresturantOPT.get().getRestaurantId());
+//		}
+//
+//		Restaurants existrestaurants = idverifedresturantOPT.get();
+//
+//		existrestaurants.setAddress(restaurants.getAddress());
+//		existrestaurants.setContactNumber(restaurants.getContactNumber());
+//		existrestaurants.setManagerName(restaurants.getManagerName());
+//		existrestaurants.setRestaurantName(restaurants.getRestaurantName());
+//
+//		List<Items> listofItemsCommingfrombody = restaurants.getItemList();
+//
+//		for (Items items : listofItemsCommingfrombody) {
+//			existrestaurants.getItemList().add(items);
+//			// items.getListOfRestaurants().add(existrestaurants);
+//		}
+//
+//		return rDao.save(existrestaurants);
 
 	}
 
@@ -96,19 +136,18 @@ public class RestaurantServiceImpl implements RestaurantService {
 		return existrestaurants;
 	}
 
-	//3. customer 
+	// 3. customer
 	@Override
 	public List<Restaurants> viewRestaurant(String uniqueId) throws RestaurantException {
 		CustomerSession cS = cSDao.findByUniqueId(uniqueId);
 
 		if (cS != null) {
-			List<Restaurants> list =  rDao.findAll();
+			List<Restaurants> list = rDao.findAll();
 			return list;
 		}
 		{
 			throw new RestaurantException("Customer is not logged in");
 		}
-
 
 //		Optional<Restaurants> opt = rDao.findById(restaurants.getRestaurantId());
 //

@@ -2,6 +2,7 @@ package com.foodexpress.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,17 +13,17 @@ import com.foodexpress.service.RestaurantLoginService;
 
 @RestController
 public class RestaurantLoginController {
-	
+
 	@Autowired
 	private RestaurantLoginService rLService;
-	
+
 	@PostMapping("/restaurantLogin")
 	public String restaurantLogin(@RequestBody RestaurantLoginDTO dto) {
 		return rLService.restaurantLogin(dto);
 	}
-	
-	@PatchMapping("/restaurantLogout")
-	public String restaurantLogout(@RequestParam String uniqueId) {
+
+	@PatchMapping("/restaurantLogout/{uniqueId}")
+	public String restaurantLogout(@PathVariable("uniqueId") String uniqueId) {
 		return rLService.restaurantLogout(uniqueId);
 	}
 

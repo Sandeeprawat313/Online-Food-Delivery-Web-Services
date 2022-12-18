@@ -52,9 +52,9 @@ public class CustomerControll
 
 	// check 
 	// 3remove customer (BY ADMIN ONLY)
-	@DeleteMapping("/customers/{uid}/{un}") // remove it from session also(pending)
+	@DeleteMapping("/customers/{uid}/{userNameCustomer}") // remove it from session also(pending)
 	public ResponseEntity<Customer> removeCustomer(@PathVariable("uid") String uniqueId,
-			@PathVariable("un") String userNameCustomer)
+			@PathVariable("userNameCustomer") String userNameCustomer)
 	{
 		Customer removedCustomer = cService.removeCustomer(uniqueId, userNameCustomer);
 		return new ResponseEntity<Customer>(removedCustomer, HttpStatus.OK);
